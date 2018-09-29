@@ -4,6 +4,8 @@ import './App.css';
 
 import VotingBox from './components/VotingBox/VotingBox.js';
 
+alert('Need to move iterator inside the [state] so that we can reset it easily');
+
 /**
  * Custom iterator:
  * - next() returns: { id:currentIndex, value:currentValue, done:false }
@@ -40,14 +42,15 @@ class App extends Component {
         { title:'Is this a supporter?', name:'isSupporter', type:'bool', isRecord:true },
         { title:'wants a lawn sign?', name:'lawnSign', type:'bool', isRecord:true },
       ],
-      prospect: {
-        number: null,       // nouse, appartment, ...
-        isSupporter: null,  // Will vote in favor of the candidate
-        lawnSign: null,     // Wants the candidate sign on property lawn
+      prospectInfo: {
+        number: '',       // nouse, appartment, ...
+        isSupporter: '',  // Will vote in favor of the candidate
+        lawnSign: '',     // Wants the candidate sign on property lawn
       },
     };
     this.moveToNextStep = this.moveToNextStep.bind(this);
     this.saveProspectInfo = this.saveProspectInfo.bind(this);
+    this.handleDataChange = this.handleDataChange.bind(this);
   }
 
 
@@ -66,11 +69,20 @@ class App extends Component {
   }
 
 
+
+  handleDataChange(e){
+    // console.log();
+    const { prospectInfo } = this.state;
+    prospectInfo[e.target.name] = e.target.value;
+    this.setState({ prospectInfo });
+  }
+
+
   /**
    * 
    */
   submitProspectInfo() {
-    console.log('Submit Prospect info: ', this.state.prospect);
+    console.log('Submit Prospect info: ', this.state.prospectInfo);
   }
   
 
@@ -78,13 +90,13 @@ class App extends Component {
    * 
    */
   clearProspectInfo() {
-    let { prospect } = this.state;
-    prospect = {
-      number: null,       // nouse, appartment, ...
-      isSupporter: null,  // Will vote in favor of the candidate
-      lawnSign: null,     // Wants the candidate sign on property lawn
+    let { prospectInfo } = this.state;
+    prospectInfo = {
+      number: '',       // nouse, appartment, ...
+      isSupporter: '',  // Will vote in favor of the candidate
+      lawnSign: '',     // Wants the candidate sign on property lawn
     };
-    this.setState({ prospect });
+    this.setState({ prospectInfo });
   }
 
 
@@ -113,7 +125,7 @@ class App extends Component {
     const currStep = stepsIterator.next();
     // console.log('vote', currStep);
     if(!currStep.done) {
-      let { steps, prospect } = this.state;
+      let { steps, prospectInfo } = this.state;
       // Deactivate current step's view (update its value in the steps array)
       currStep.value.active = false; // deactivate object
       steps.splice(currStep.id, 1, currStep.value); // update current object
@@ -122,17 +134,17 @@ class App extends Component {
       let nextInd = currStep.id + 1;
       if (steps[nextInd]) {
         steps[nextInd].active = true;
+        //....
+        prospectInfo = this.saveProspectInfo(propName, value, prospectInfo);
+        //...
+        this.setState({ steps, prospectInfo });
       } else {
         // Submit everything if all steps have been completed
         this.submitProspectInfo(); // submit prospect info
         this.clearProspectInfo(); // clean prospect info
       }
 
-      //....
-      prospect = this.saveProspectInfo(propName, value, prospect);
 
-      //...
-      this.setState({ steps, prospect });
     }
   }
 
@@ -160,8 +172,10 @@ class App extends Component {
                 <VotingBox
                   key={step.name}
                   {...step}
+                  {...this.state.prospectInfo}
                   className={`${step.active?`active`:``}`}
                   // record={this.saveProspectInfo}
+                  handleChange={this.handleDataChange}
                   handleSubmit={this.moveToNextStep} 
                 />
               )

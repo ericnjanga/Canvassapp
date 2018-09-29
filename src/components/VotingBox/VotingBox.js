@@ -8,18 +8,13 @@ import PropTypes from 'prop-types';
 export default class VotingBox extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      inputText: '',
-    };
-    this.handleChange = this.handleChange.bind(this);
+    // this.state = {
+    //   number: '',
+    // };
     this.recVal = this.props.handleSubmit;
   }
 
 
-  handleChange(e){
-    // console.log();
-    this.setState({ [e.target.name]:e.target.value });
-  }
 
 
   render() {
@@ -47,12 +42,12 @@ export default class VotingBox extends React.Component {
           <div>
             <input
               type="text"
-              name="inputText"
-              value={this.state.inputText}
-              onChange={this.handleChange}
+              name="number"
+              value={this.props.number}
+              onChange={this.props.handleChange}
             />
             <button
-              onClick={()=>this.recVal(this.props.name, this.state.inputText)}
+              onClick={()=>this.recVal(this.props.name, this.props.number)}
             >ok</button>
           </div>
         }
