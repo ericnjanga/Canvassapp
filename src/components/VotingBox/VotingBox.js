@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Button, Badge } from 'reactstrap';
 
 /**
  * 
@@ -12,44 +13,92 @@ export default class VotingBox extends React.Component {
     //   number: '',
     // };
     this.recVal = this.props.handleSubmit;
+    this.activateButton = this.activateButton.bind(this);
+  }
+
+
+  activateButton(stepName, option, isSupporter, lawnSign) {
+    return (stepName==='isSupporter' && isSupporter===option) || (stepName==='lawnSign' && lawnSign===option)?`primary`:``
   }
 
 
 
 
   render() {
+    const { title, isSupporter, lawnSign, number, name:stepName } = this.props;
     return(
-      <div className={`voterbox ${this.props.className}`}>
-        <h3>{ this.props.title }</h3>
-        
-        {
-          this.props.type === 'bool' && 
+      <div
+        className={`stepPanel ${this.props.className}`}
+        onClick={this.props.onClick}
+      >
+        <h3 className="stepPanel--info">
+          <small>{ title }</small>
+          
+          <Badge color="primary">
+            {
+              stepName==='isSupporter' && isSupporter
+            }
+            {
+              stepName==='lawnSign' && lawnSign
+            }
+            {
+              stepName==='number' && number
+            }
+          </Badge>
+        </h3>
+
+        <div className="stepPanel--decorator">
+          <h3>{ this.props.title }</h3>
+
           <ul className="list-unstyled list-inline">
-            <li>
-              <button onClick={()=>this.recVal(this.props.name, 'yes')}>Yes</button>
-            </li>
-            <li>
-              <button onClick={()=>this.recVal(this.props.name, 'undecided')}>Undecided</button>
-            </li>
-            <li>
-              <button onClick={()=>this.recVal(this.props.name, 'no')}>No</button>
-            </li>
+            {
+              this.props.type === 'bool' && ['yes','undecided','no'].map(option => {
+                return (
+                  <li
+                    key={option}
+                    className="list-inline-item">
+                    <Button
+                      color={ this.activateButton(stepName, option, isSupporter, lawnSign) }
+                      onClick={()=>this.recVal(this.props.name, option)}>
+                      { option }
+                    </Button>
+                  </li>
+                )
+              })
+            }
           </ul>
-        }
+        </div>
+
+
+        
+       
         
         {
           this.props.type === 'textInput' && 
-          <div>
+          <div className="input-group">
             <input
+              className="form-control"
               type="text"
               name="number"
               value={this.props.number}
               onChange={this.props.handleChange}
             />
-            <button
-              onClick={()=>this.recVal(this.props.name, this.props.number)}
-            >ok</button>
+            <div className="input-group-append">
+              <Button
+                onClick={()=>this.recVal(this.props.name, this.props.number)}
+              >ok</Button>
+            </div>
           </div>
+        }
+
+
+
+
+        {
+          this.props.type === 'submit' && 
+          <footer className="App-footer">
+            <Button color="danger" className="text-uppercase font-weight-bold">Submit</Button>
+          </footer>
         }
         
       </div>

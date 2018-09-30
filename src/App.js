@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
+import { Button } from 'reactstrap';
 import logo from './logo.svg';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
 import VotingBox from './components/VotingBox/VotingBox.js';
 
-alert('Need to move iterator inside the [state] so that we can reset it easily');
+// alert('...resetSteps()');
 
 /**
  * Custom iterator:
@@ -37,12 +40,13 @@ class App extends Component {
     super(props);
     this.state = {
       steps: [
-        // { name:'start' },
-        { title:'Enter xxx number', name:'number', type:'textInput', isRecord:true, active:true },
-        { title:'Is this a supporter?', name:'isSupporter', type:'bool', isRecord:true },
-        { title:'wants a lawn sign?', name:'lawnSign', type:'bool', isRecord:true },
+        { title:'Enter xxx number', name:'number', type:'textInput', active:true },
+        { title:'Is this a supporter?', name:'isSupporter', type:'bool', },
+        { title:'wants a lawn sign?', name:'lawnSign', type:'bool', },
+        { title:'Ready to submit?', name:'submit', type:'submit', },
       ],
       prospectInfo: {
+        streetID: '',
         number: '',       // nouse, appartment, ...
         isSupporter: '',  // Will vote in favor of the candidate
         lawnSign: '',     // Wants the candidate sign on property lawn
@@ -55,8 +59,7 @@ class App extends Component {
 
 
   componentDidMount() {
-    let stepsIterator = moveThroughSteps(this.state.steps);
-    this.setState({ stepsIterator });
+    this.resetStepIterator();
   }
 
   /**
@@ -84,12 +87,18 @@ class App extends Component {
   submitProspectInfo() {
     console.log('Submit Prospect info: ', this.state.prospectInfo);
   }
+
+
+  resetStepIterator() {
+    let stepsIterator = moveThroughSteps(this.state.steps);
+    this.setState({ stepsIterator });
+  }
   
 
   /**
    * 
    */
-  clearProspectInfo() {
+  resetProspectInfo() {
     let { prospectInfo } = this.state;
     prospectInfo = {
       number: '',       // nouse, appartment, ...
@@ -97,6 +106,20 @@ class App extends Component {
       lawnSign: '',     // Wants the candidate sign on property lawn
     };
     this.setState({ prospectInfo });
+  }
+
+
+  resetSteps() {
+    const { steps } = this.state;
+    // steps[0].active = true;
+    steps.forEach((element, index) => {
+      if(index===0) {
+        element.active = true;
+      } else {
+        element.active = false;
+      }
+      // console.log('....index', index);
+    });
   }
 
 
@@ -120,6 +143,8 @@ class App extends Component {
    * @param {*} value 
    */
   moveToNextStep(propName, value) {
+
+    console.log('....', propName, value);
     // this.state.stepsIterator
     const { stepsIterator } = this.state;
     const currStep = stepsIterator.next();
@@ -141,7 +166,9 @@ class App extends Component {
       } else {
         // Submit everything if all steps have been completed
         this.submitProspectInfo(); // submit prospect info
-        this.clearProspectInfo(); // clean prospect info
+        // this.resetProspectInfo(); // clean prospect info
+        // this.resetSteps();
+        this.resetStepIterator();
       }
 
 
@@ -155,28 +182,26 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
+          {/* <img src={logo} className="App-logo" alt="logo" /> */}
+          <h1 className="App-title">Canvassing App</h1>
+          <p style={{margin:0}}>street name</p>
         </header>
         <div className="App-intro">
-          {/* <VotingBox
-            title='Start a new street'
-            active='active'
-          /> */}
           {
-            this.state.steps.map(step => {
-              if (!step.isRecord){
-                return false;
-              }
+            this.state.steps.map((step, index) => {
+              // if (!step.isRecord){
+              //   return false;
+              // }
               return(
                 <VotingBox
                   key={step.name}
                   {...step}
                   {...this.state.prospectInfo}
-                  className={`${step.active?`active`:``}`}
+                  className={`step${index + 1} ${step.active?`active`:``} ${step.type==='submit'?'App-footer':''}`}
                   // record={this.saveProspectInfo}
                   handleChange={this.handleDataChange}
                   handleSubmit={this.moveToNextStep} 
+                  onClick={()=>console.log('heyyyyy!!!!!!')}
                 />
               )
             })
@@ -184,7 +209,7 @@ class App extends Component {
         
           {/* To get started, edit <code>src/App.js</code> and save to reload. */}
         </div>
-        <div style={{ position:'absolute', top:'20px', right:'20px' }}>
+        {/* <div style={{ position:'absolute', top:'20px', right:'20px' }}>
           <button onClick={this.moveToNextStep}>New <b>Street / Building</b> Canvassing</button>
           <div>
             <label>Street / Building name</label>
@@ -200,9 +225,15 @@ class App extends Component {
             </select>
           </div>
         </div>
+
+
         <div style={{ position:'absolute', top:'90px', right:'20px' }}>
           <button onClick={this.moveToNextStep}>Start Recording</button>
-        </div>
+        </div> */}
+
+
+            <p style={{position:'absolute', fontSize:'.8rem', top:'5px', color:'lime'}}><small>Inspiration: Google Calendar App</small></p>
+        
       </div>
     );
   }
