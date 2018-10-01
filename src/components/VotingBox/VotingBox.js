@@ -25,7 +25,8 @@ export default class VotingBox extends React.Component {
 
 
   render() {
-    const { title, isSupporter, lawnSign, number, name:stepName } = this.props;
+    const { title, isSupporter, lawnSign, number, name:stepName, itemIndex } = this.props;
+    console.log('....----', itemIndex );
     return(
       <div
         className={`stepPanel ${this.props.className}`}
@@ -59,7 +60,7 @@ export default class VotingBox extends React.Component {
                     className="list-inline-item">
                     <Button
                       color={ this.activateButton(stepName, option, isSupporter, lawnSign) }
-                      onClick={()=>this.recVal(this.props.name, option)}>
+                      onClick={()=>{ this.recVal(stepName, option, itemIndex)} }>
                       { option }
                     </Button>
                   </li>
@@ -85,7 +86,7 @@ export default class VotingBox extends React.Component {
             />
             <div className="input-group-append">
               <Button
-                onClick={()=>this.recVal(this.props.name, this.props.number)}
+                onClick={()=>this.recVal(stepName, this.props.number, itemIndex)}
               >ok</Button>
             </div>
           </div>
@@ -96,9 +97,7 @@ export default class VotingBox extends React.Component {
 
         {
           this.props.type === 'submit' && 
-          <footer className="App-footer">
-            <Button color="danger" className="text-uppercase font-weight-bold">Submit</Button>
-          </footer>
+          <Button color="danger" className="text-uppercase font-weight-bold">Submit</Button>
         }
         
       </div>

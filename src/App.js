@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import { Button } from 'reactstrap';
 import logo from './logo.svg';
 
@@ -52,7 +53,7 @@ class App extends Component {
         lawnSign: '',     // Wants the candidate sign on property lawn
       },
     };
-    this.moveToNextStep = this.moveToNextStep.bind(this);
+    this.saveProspectInfo = this.saveProspectInfo.bind(this);
     this.saveProspectInfo = this.saveProspectInfo.bind(this);
     this.handleDataChange = this.handleDataChange.bind(this);
   }
@@ -68,7 +69,24 @@ class App extends Component {
    * - 
    */
   stopStep() {
+  }
 
+
+
+  jumpToStep(stepIndex) {
+    console.log('Jump to: ', stepIndex);
+    const { steps } = this.state;
+    const step = steps[stepIndex];
+    if (!step.active) {
+      steps.forEach((item, index) => {
+        if(index!==stepIndex) {
+          item.active = false;
+        } else {
+          item.active = true;
+        }
+      });
+    }
+    this.setState({ steps })
   }
 
 
@@ -123,13 +141,13 @@ class App extends Component {
   }
 
 
-  saveProspectInfo(propName, value, data) {
-    if(propName==='number' || propName==='isSupporter' || propName==='lawnSign') {
-      data[propName] = value;
-      console.log('...propName=', propName, value);
-    }
-    return data;
-  }
+  // saveProspectInfo(propName, value, data) {
+  //   if(propName==='number' || propName==='isSupporter' || propName==='lawnSign') {
+  //     data[propName] = value;
+  //     console.log('...propName=', propName, value);
+  //   }
+  //   return data;
+  // }
 
 
   /**
@@ -142,37 +160,51 @@ class App extends Component {
    * @param {*} propName 
    * @param {*} value 
    */
-  moveToNextStep(propName, value) {
+  saveProspectInfo(propName, value, index) {
 
-    console.log('....', propName, value);
-    // this.state.stepsIterator
-    const { stepsIterator } = this.state;
-    const currStep = stepsIterator.next();
-    // console.log('vote', currStep);
-    if(!currStep.done) {
-      let { steps, prospectInfo } = this.state;
-      // Deactivate current step's view (update its value in the steps array)
-      currStep.value.active = false; // deactivate object
-      steps.splice(currStep.id, 1, currStep.value); // update current object
+    // !step.active && 
+    let { steps, prospectInfo } = this.state;
+    this.setState({ steps, prospectInfo });
 
-      // Activate next step's view (if there is any)
-      let nextInd = currStep.id + 1;
-      if (steps[nextInd]) {
-        steps[nextInd].active = true;
-        //....
-        prospectInfo = this.saveProspectInfo(propName, value, prospectInfo);
-        //...
-        this.setState({ steps, prospectInfo });
-      } else {
-        // Submit everything if all steps have been completed
-        this.submitProspectInfo(); // submit prospect info
-        // this.resetProspectInfo(); // clean prospect info
-        // this.resetSteps();
-        this.resetStepIterator();
-      }
+    console.log('....', propName, index,  value);
 
 
+    if(propName==='number' || propName==='isSupporter' || propName==='lawnSign') {
+      prospectInfo[propName] = value;
+      // console.log('...propName=', propName, value);
+      this.setState({ steps, prospectInfo });
+
+      this.jumpToStep(index + 1);
     }
+
+
+
+    // this.state.stepsIterator
+    // const { stepsIterator } = this.state;
+    // const currStep = stepsIterator.next();
+    // // console.log('vote', currStep);
+    // if(!currStep.done) {
+    //   let { steps, prospectInfo } = this.state;
+    //   // Deactivate current step's view (update its value in the steps array)
+    //   currStep.value.active = false; // deactivate object
+    //   steps.splice(currStep.id, 1, currStep.value); // update current object
+
+    //   // Activate next step's view (if there is any)
+    //   let nextInd = currStep.id + 1;
+    //   if (steps[nextInd]) {
+    //     steps[nextInd].active = true;
+    //     //....
+    //     prospectInfo = this.saveProspectInfo(propName, value, prospectInfo);
+    //     //...
+    //     this.setState({ steps, prospectInfo });
+    //   } else {
+    //     // Submit everything if all steps have been completed
+    //     this.submitProspectInfo(); // submit prospect info
+    //     // this.resetProspectInfo(); // clean prospect info
+    //     // this.resetSteps();
+    //     this.resetStepIterator();
+    //   }
+    // }
   }
 
 
@@ -191,17 +223,17 @@ class App extends Component {
             this.state.steps.map((step, index) => {
               // if (!step.isRecord){
               //   return false;
-              // }
+              // }jumpToStep
               return(
                 <VotingBox
-                  key={step.name}
+                  key={index}
                   {...step}
                   {...this.state.prospectInfo}
-                  className={`step${index + 1} ${step.active?`active`:``} ${step.type==='submit'?'App-footer':''}`}
-                  // record={this.saveProspectInfo}
+                  className={`step${index + 1} ${step.active?`active`:``}`}
+                  itemIndex={index}
                   handleChange={this.handleDataChange}
-                  handleSubmit={this.moveToNextStep} 
-                  onClick={()=>console.log('heyyyyy!!!!!!')}
+                  handleSubmit={this.saveProspectInfo} 
+                  onClick={ ()=>this.jumpToStep(index) }
                 />
               )
             })
@@ -210,7 +242,7 @@ class App extends Component {
           {/* To get started, edit <code>src/App.js</code> and save to reload. */}
         </div>
         {/* <div style={{ position:'absolute', top:'20px', right:'20px' }}>
-          <button onClick={this.moveToNextStep}>New <b>Street / Building</b> Canvassing</button>
+          <button onClick={this.saveProspectInfo}>New <b>Street / Building</b> Canvassing</button>
           <div>
             <label>Street / Building name</label>
             <input type="text" placeholder="Street / Building name" />
@@ -228,7 +260,7 @@ class App extends Component {
 
 
         <div style={{ position:'absolute', top:'90px', right:'20px' }}>
-          <button onClick={this.moveToNextStep}>Start Recording</button>
+          <button onClick={this.saveProspectInfo}>Start Recording</button>
         </div> */}
 
 

@@ -54,7 +54,7 @@ h3 {
 
 .stepPanel {
   position: relative;
-  /* flex: calc(100/3); */
+  color: #fff;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -108,16 +108,4 @@ h3 {
 }
 .list-inline {
   padding: 0;
-}
-
- 
-
-.step4 {
-  /* background: #444; */
-  color: #fff;
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
 }
