@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
-
-import { Button } from 'reactstrap';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+ 
+import { Button, Badge } from 'reactstrap';
 import logo from './logo.svg';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
 import VotingBox from './components/VotingBox/VotingBox.js';
+
+import NumberView from './terminals/NumberView.js';
 
 // alert('...resetSteps()');
 
@@ -40,12 +43,56 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      steps: [
-        { title:'Enter xxx number', name:'number', type:'textInput', active:true },
-        { title:'Is this a supporter?', name:'isSupporter', type:'bool', },
-        { title:'wants a lawn sign?', name:'lawnSign', type:'bool', },
-        { title:'Ready to submit?', name:'submit', type:'submit', },
-      ],
+      street: {
+        name: 'John Garland Blv',
+        numbers: [
+          {
+            id:'',
+            number: 28,
+            prosprectInfo: null,
+          },
+          {
+            id:'',
+            number: 30,
+            prosprectInfo: null,
+          },
+          {
+            id:'',
+            number: 32,
+            prosprectInfo: null,
+          },
+          {
+            id:'',
+            number: 34,
+            prosprectInfo: null,
+          },
+          {
+            id:'',
+            number: 36,
+            prosprectInfo: null,
+          },
+          {
+            id:'',
+            number: 40,
+            prosprectInfo: null,
+          },
+          {
+            id:'',
+            number: 42,
+            prosprectInfo: null,
+          },
+          {
+            id:'',
+            number: 44,
+            prosprectInfo: null,
+          },
+          {
+            id:'',
+            number: 50,
+            prosprectInfo: null,
+          },
+        ],
+      },
       prospectInfo: {
         streetID: '',
         number: '',       // nouse, appartment, ...
@@ -212,63 +259,108 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          {/* <img src={logo} className="App-logo" alt="logo" /> */}
-          <h1 className="App-title">Canvassing App</h1>
-          <p style={{margin:0}}>street name</p>
-        </header>
-        <div className="App-intro">
-          {
-            this.state.steps.map((step, index) => {
-              // if (!step.isRecord){
-              //   return false;
-              // }jumpToStep
-              return(
-                <VotingBox
-                  key={index}
-                  {...step}
-                  {...this.state.prospectInfo}
-                  className={`step${index + 1} ${step.active?`active`:``}`}
-                  itemIndex={index}
-                  handleChange={this.handleDataChange}
-                  handleSubmit={this.saveProspectInfo} 
-                  onClick={ ()=>this.jumpToStep(index) }
-                />
-              )
-            })
-          }
-        
-          {/* To get started, edit <code>src/App.js</code> and save to reload. */}
-        </div>
-        {/* <div style={{ position:'absolute', top:'20px', right:'20px' }}>
-          <button onClick={this.saveProspectInfo}>New <b>Street / Building</b> Canvassing</button>
-          <div>
-            <label>Street / Building name</label>
-            <input type="text" placeholder="Street / Building name" />
+      <Router>
+        <div className="App">
+          <header className="App-header">
+            {/* <img src={logo} className="App-logo" alt="logo" /> */}
+            <h1 className="App-title">Canvassing App</h1>
+            <p style={{ margin:0, color:'#ccc' }}>
+              <Link to="/">
+                <Badge>
+                  { this.state.street.name } 
+                </Badge>
+              </Link>
+              {' / '}
+              <Badge color="primary">
+                ...
+              </Badge>
+            </p>
+          </header>
+          <div className="App-intro">
+
+            <Route
+              exact
+              path="/"
+              render={() => <ListOfNumbers list={this.state.street.numbers} /> }
+            />
+
+            <Route path={`/:id`} component={NumberView} />
+
+            {/* {
+              this.state.steps.map((step, index) => { 
+                return(
+                  <VotingBox
+                    key={index}
+                    {...step}
+                    {...this.state.prospectInfo}
+                    className={`step${index + 1} ${step.active?`active`:``}`}
+                    itemIndex={index}
+                    handleChange={this.handleDataChange}
+                    handleSubmit={this.saveProspectInfo} 
+                    onClick={ ()=>this.jumpToStep(index) }
+                  />
+                )
+              })
+            } */}
+          
+            {/* To get started, edit <code>src/App.js</code> and save to reload. */}
           </div>
-          <div>
-            <label>Select an existing one:</label>
-            <select>
-              <option>Recorded Street 1</option>
-              <option>Recorded Street 2</option>
-              <option>Recorded Street 3</option>
-              <option>Recorded Street 4</option>
-            </select>
+          {/* <div style={{ position:'absolute', top:'20px', right:'20px' }}>
+            <button onClick={this.saveProspectInfo}>New <b>Street / Building</b> Canvassing</button>
+            <div>
+              <label>Street / Building name</label>
+              <input type="text" placeholder="Street / Building name" />
+            </div>
+            <div>
+              <label>Select an existing one:</label>
+              <select>
+                <option>Recorded Street 1</option>
+                <option>Recorded Street 2</option>
+                <option>Recorded Street 3</option>
+                <option>Recorded Street 4</option>
+              </select>
+            </div>
           </div>
-        </div>
 
 
-        <div style={{ position:'absolute', top:'90px', right:'20px' }}>
-          <button onClick={this.saveProspectInfo}>Start Recording</button>
-        </div> */}
+          <div style={{ position:'absolute', top:'90px', right:'20px' }}>
+            <button onClick={this.saveProspectInfo}>Start Recording</button>
+          </div> */}
 
 
             <p style={{position:'absolute', fontSize:'.8rem', top:'5px', color:'lime'}}><small>Inspiration: Google Calendar App</small></p>
         
-      </div>
+        </div>
+      </Router>
     );
   }
 }
 
+
+
+
+const ListOfNumbers = ({list}) => {
+  if(!list) {
+    return false;
+  }
+
+  return (
+    <section className="square-listing">
+      {
+        list.map(home => {
+          return (
+            <Link
+              key={home.number}
+              className="button btn-primary square"
+              // color="primary"
+              to={`/${home.number}`}
+            >{ home.number }</Link>
+          )
+        })
+      }
+    </section>
+  )
+};
+
 export default App;
+
