@@ -43,56 +43,352 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      street: {
-        name: 'John Garland Blv',
-        numbers: [
-          {
-            id:'',
-            number: 28,
-            prosprectInfo: null,
-          },
-          {
-            id:'',
-            number: 30,
-            prosprectInfo: null,
-          },
-          {
-            id:'',
-            number: 32,
-            prosprectInfo: null,
-          },
-          {
-            id:'',
-            number: 34,
-            prosprectInfo: null,
-          },
-          {
-            id:'',
-            number: 36,
-            prosprectInfo: null,
-          },
-          {
-            id:'',
-            number: 40,
-            prosprectInfo: null,
-          },
-          {
-            id:'',
-            number: 42,
-            prosprectInfo: null,
-          },
-          {
-            id:'',
-            number: 44,
-            prosprectInfo: null,
-          },
-          {
-            id:'',
-            number: 50,
-            prosprectInfo: null,
-          },
-        ],
-      },
+      streetsList: [
+        {
+          id: '-street-0',
+          name: 'John Garland Blv',
+        },
+        {
+          id: '-street-1',
+          name: 'John Garland Blv',
+        },
+        {
+          id: '-street-2',
+          name: 'John Garland Blv',
+        },
+      ],
+      numbers: new Map(
+        [
+          [
+            '-street-0',
+            {
+              list: new Map(
+                [
+                  [
+                    '28F',
+                    {
+                      id:'28F',
+                      prospectInfo: {
+                        comment:'..28F comment here...',
+                      },
+                    }
+                  ],
+                  [
+                    '30S',
+                    {
+                      id:'30S',
+                      prospectInfo: {
+                        comment:'..Hey...',
+                      },
+                    }
+                  ],
+                  [
+                    '32',
+                    {
+                      id:'32',
+                      prospectInfo: {
+                        comment:'..Hey...',
+                      },
+                    }
+                  ],
+                  [
+                    '34U',
+                    {
+                      id:'34U',
+                      prospectInfo: {
+                        comment:'..Hey...',
+                      },
+                    }
+                  ],
+                  [
+                    '30S',
+                    {
+                      id:'30S',
+                      prospectInfo: {
+                        comment:'..Hey...',
+                      },
+                    }
+                  ],
+                  [
+                    '36',
+                    {
+                      id:'36',
+                      prospectInfo: {
+                        comment:'..Hey...',
+                      },
+                    }
+                  ],
+                  [
+                    '38A',
+                    {
+                      id:'38A',
+                      prospectInfo: {
+                        comment:'..Hey...',
+                      },
+                    }
+                  ],
+                  [
+                    '42',
+                    {
+                      id:'42',
+                      prospectInfo: {
+                        comment:'..Hey...',
+                      },
+                    }
+                  ],
+                  [
+                    '44F',
+                    {
+                      id:'44F',
+                      prospectInfo: {
+                        comment:'..Hey...',
+                      },
+                    }
+                  ],
+                  [
+                    '46',
+                    {
+                      id:'46',
+                      prospectInfo: {
+                        comment:'..Hey...',
+                      },
+                    }
+                  ],
+                  [
+                    '50U',
+                    {
+                      id:'50U',
+                      prospectInfo: {
+                        comment:'..Hey...',
+                      },
+                    }
+                  ],
+                ]
+              ), //list
+            },
+          ], // numbers 0
+
+          [
+            '-street-1',
+            {
+              list: new Map(
+                [
+                  [
+                    '28F',
+                    {
+                      id:'',
+                      prospectInfo: {
+                        comment:'..Hey...',
+                      },
+                    }
+                  ],
+                  [
+                    '30S',
+                    {
+                      id:'',
+                      prospectInfo: {
+                        comment:'..Hey...',
+                      },
+                    }
+                  ],
+                  [
+                    '32',
+                    {
+                      id:'',
+                      prospectInfo: {
+                        comment:'..Hey...',
+                      },
+                    }
+                  ],
+                  [
+                    '28F',
+                    {
+                      id:'',
+                      prospectInfo: {
+                        comment:'..Hey...',
+                      },
+                    }
+                  ],
+                  [
+                    '30S',
+                    {
+                      id:'',
+                      prospectInfo: {
+                        comment:'..Hey...',
+                      },
+                    }
+                  ],
+                  [
+                    '36',
+                    {
+                      id:'',
+                      prospectInfo: {
+                        comment:'..Hey...',
+                      },
+                    }
+                  ],
+                  [
+                    '38A',
+                    {
+                      id:'',
+                      prospectInfo: {
+                        comment:'..Hey...',
+                      },
+                    }
+                  ],
+                  [
+                    '42',
+                    {
+                      id:'',
+                      prospectInfo: {
+                        comment:'..Hey...',
+                      },
+                    }
+                  ],
+                  [
+                    '44F',
+                    {
+                      id:'',
+                      prospectInfo: {
+                        comment:'..Hey...',
+                      },
+                    }
+                  ],
+                  [
+                    '46',
+                    {
+                      id:'',
+                      prospectInfo: {
+                        comment:'..Hey...',
+                      },
+                    }
+                  ],
+                  [
+                    '50U',
+                    {
+                      id:'',
+                      prospectInfo: {
+                        comment:'..Hey...',
+                      },
+                    }
+                  ],
+                ]
+              ), //list
+            },
+          ], // numbers 1
+
+
+          [
+            '-street-2',
+            {
+              list: new Map(
+                [
+                  [
+                    '28F',
+                    {
+                      id:'',
+                      prospectInfo: {
+                        comment:'..Hey...',
+                      },
+                    }
+                  ],
+                  [
+                    '30S',
+                    {
+                      id:'',
+                      prospectInfo: {
+                        comment:'..Hey...',
+                      },
+                    }
+                  ],
+                  [
+                    '32',
+                    {
+                      id:'',
+                      prospectInfo: {
+                        comment:'..Hey...',
+                      },
+                    }
+                  ],
+                  [
+                    28,
+                    {
+                      id:'',
+                      prospectInfo: {
+                        comment:'..Hey...',
+                      },
+                    }
+                  ],
+                  [
+                    '30S',
+                    {
+                      id:'',
+                      prospectInfo: {
+                        comment:'..Hey...',
+                      },
+                    }
+                  ],
+                  [
+                    '36',
+                    {
+                      id:'',
+                      prospectInfo: {
+                        comment:'..Hey...',
+                      },
+                    }
+                  ],
+                  [
+                    '38A',
+                    {
+                      id:'',
+                      prospectInfo: {
+                        comment:'..Hey...',
+                      },
+                    }
+                  ],
+                  [
+                    '42',
+                    {
+                      id:'',
+                      prospectInfo: {
+                        comment:'..Hey...',
+                      },
+                    }
+                  ],
+                  [
+                    '44F',
+                    {
+                      id:'',
+                      prospectInfo: {
+                        comment:'..Hey...',
+                      },
+                    }
+                  ],
+                  [
+                    '46',
+                    {
+                      id:'',
+                      prospectInfo: {
+                        comment:'..Hey...',
+                      },
+                    }
+                  ],
+                  [
+                    '50U',
+                    {
+                      id:'',
+                      prospectInfo: {
+                        comment:'..Hey...',
+                      },
+                    }
+                  ],
+                ]
+              ), //list
+            },
+          ], // numbers 2
+        ]
+      ), // numbers
+  
       prospectInfo: {
         streetID: '',
         number: '',       // nouse, appartment, ...
@@ -100,14 +396,18 @@ class App extends Component {
         lawnSign: '',     // Wants the candidate sign on property lawn
       },
     };
-    this.saveProspectInfo = this.saveProspectInfo.bind(this);
-    this.saveProspectInfo = this.saveProspectInfo.bind(this);
     this.handleDataChange = this.handleDataChange.bind(this);
   }
 
 
   componentDidMount() {
-    this.resetStepIterator();
+    // this.resetStepIterator();
+    let activeNumbersList = this.state.numbers.get('-street-0').list;
+    // console.log('...', this.state.numbers.get('-street-0').list.values())
+
+    // activeNumbersList.forEach(item => console.log('item=', item));
+
+    this.setState({ activeNumbersList });
   }
 
   /**
@@ -120,29 +420,18 @@ class App extends Component {
 
 
 
-  jumpToStep(stepIndex) {
-    console.log('Jump to: ', stepIndex);
-    const { steps } = this.state;
-    const step = steps[stepIndex];
-    if (!step.active) {
-      steps.forEach((item, index) => {
-        if(index!==stepIndex) {
-          item.active = false;
-        } else {
-          item.active = true;
-        }
-      });
-    }
-    this.setState({ steps })
-  }
+  handleDataChange(e, id){
+    // console.log('....', e.target.name , ' - ', id);
+    const { activeNumbersList } = this.state;
+    const item = activeNumbersList.get(id);
+
+    item.prospectInfo[e.target.name] = e.target.value;
+    activeNumbersList.get(id, item);
 
 
-
-  handleDataChange(e){
-    // console.log();
-    const { prospectInfo } = this.state;
-    prospectInfo[e.target.name] = e.target.value;
-    this.setState({ prospectInfo });
+    console.log('....item=', item.prospectInfo[e.target.name]);
+    // prospectInfo[e.target.name] = e.target.value;
+    this.setState({ activeNumbersList });
   }
 
 
@@ -197,65 +486,6 @@ class App extends Component {
   // }
 
 
-  /**
-   * If iteration is not completed:
-   * - Deactivate current step's view
-   * -
-   * If iteration is completed;
-   * - submit data
-   * - clean prospect info
-   * @param {*} propName 
-   * @param {*} value 
-   */
-  saveProspectInfo(propName, value, index) {
-
-    // !step.active && 
-    let { steps, prospectInfo } = this.state;
-    this.setState({ steps, prospectInfo });
-
-    console.log('....', propName, index,  value);
-
-
-    if(propName==='number' || propName==='isSupporter' || propName==='lawnSign') {
-      prospectInfo[propName] = value;
-      // console.log('...propName=', propName, value);
-      this.setState({ steps, prospectInfo });
-
-      this.jumpToStep(index + 1);
-    }
-
-
-
-    // this.state.stepsIterator
-    // const { stepsIterator } = this.state;
-    // const currStep = stepsIterator.next();
-    // // console.log('vote', currStep);
-    // if(!currStep.done) {
-    //   let { steps, prospectInfo } = this.state;
-    //   // Deactivate current step's view (update its value in the steps array)
-    //   currStep.value.active = false; // deactivate object
-    //   steps.splice(currStep.id, 1, currStep.value); // update current object
-
-    //   // Activate next step's view (if there is any)
-    //   let nextInd = currStep.id + 1;
-    //   if (steps[nextInd]) {
-    //     steps[nextInd].active = true;
-    //     //....
-    //     prospectInfo = this.saveProspectInfo(propName, value, prospectInfo);
-    //     //...
-    //     this.setState({ steps, prospectInfo });
-    //   } else {
-    //     // Submit everything if all steps have been completed
-    //     this.submitProspectInfo(); // submit prospect info
-    //     // this.resetProspectInfo(); // clean prospect info
-    //     // this.resetSteps();
-    //     this.resetStepIterator();
-    //   }
-    // }
-  }
-
-
-
 
   render() {
     return (
@@ -267,24 +497,48 @@ class App extends Component {
             <p style={{ margin:0, color:'#ccc' }}>
               <Link to="/">
                 <Badge>
-                  { this.state.street.name } 
+                  { this.state.streetsList[0].name } 
                 </Badge>
               </Link>
-              {' / '}
-              <Badge color="primary">
-                ...
-              </Badge>
+
+              <Route
+                exact
+                path="/:id"
+                render={NumberBadge}
+              />
             </p>
           </header>
-          <div className="App-intro">
+          <div className="App-intro"> 
 
             <Route
               exact
               path="/"
-              render={() => <ListOfNumbers list={this.state.street.numbers} /> }
+              render={() => <ListOfNumbers list={this.state.activeNumbersList} /> }
             />
 
-            <Route path={`/:id`} component={NumberView} />
+            {
+              this.state.activeNumbersList && <Route
+                path={`/:id`}
+                // component={NumberView}
+                render={ 
+                  (props)=>{
+                    // console.log('----esss-')
+
+                    // console.log('***match.params.id=',props.match.params.id )
+                    // console.log('***----=', this.state.activeNumbersList.get(props.match.params.id) )
+
+
+                    return(
+                      <NumberView
+                        number={props.match.params.id}
+                        data={ this.state.activeNumbersList.get(props.match.params.id) }
+                        handleDataChange={this.handleDataChange}
+                      />
+                    )
+                  } 
+                }
+              />
+            }
 
             {/* {
               this.state.steps.map((step, index) => { 
@@ -338,25 +592,47 @@ class App extends Component {
 
 
 
+const NumberBadge = ({ match }) => {
+  console.log('match.params.id=',match.params.id)
+  if(!match.params.id){
+    return false;
+  }
 
-const ListOfNumbers = ({list}) => {
+  return(
+    <React.Fragment>
+      {' / '}
+      <Badge color="primary">
+        { match.params.id }
+      </Badge>
+    </React.Fragment>
+  );
+}
+
+
+
+
+const ListOfNumbers = ({ list }) => {
   if(!list) {
     return false;
   }
 
+  // console.log('...>>>>', list)
+  let newList = Array.from(list.values())
+
   return (
     <section className="square-listing">
       {
-        list.map(home => {
-          return (
-            <Link
-              key={home.number}
-              className="button btn-primary square"
-              // color="primary"
-              to={`/${home.number}`}
-            >{ home.number }</Link>
-          )
-        })
+        // console.log('...', list.entries() ) 
+        newList.map(item => (
+          <Link
+            key={item.id}
+            className="button btn-primary square"
+            // color="primary"
+            to={`/${item.id}`}
+          >
+            { item.id }
+          </Link> 
+        ))
       }
     </section>
   )

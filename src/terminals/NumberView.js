@@ -59,37 +59,42 @@ const NumberStatus = ({ title, optionList }) => {
 
 
 
-const NumberComment = ({ title }) => {
+const NumberComment = ({ title, value, handleChange }) => {
   return(
     <React.Fragment>
       <h3>{ title }</h3>
-      <div class="form-group">
+      <div className="form-group">
         {/* <label for="exampleFormControlTextarea1">Example textarea</label> */}
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+        <textarea
+          name="comment"
+          className="form-control"
+          rows="3"
+          value={value}
+          onChange={handleChange}
+        />
       </div>
 
-      <div>
+      {/* <div>
         <Button
           // color={ this.activateButton(stepName, option, isSupporter, lawnSign) }
-          // onClick={()=>{ this.recVal(stepName, option, itemIndex)} }
+           } }
           >
           SAVE
         </Button>
-      </div>
+      </div> */}
     </React.Fragment>
   );
 };
 
 
 
-class NumberView extends React.Component { //({ match }) => 
+class NumberView extends React.Component { 
 
   constructor(props) {
     super(props);
     this.state = {
       redirectHome: false,
-      match: null,
-      info: null,
+      info: {},
       statusList: [
         {
           text: 'absent',
@@ -115,27 +120,104 @@ class NumberView extends React.Component { //({ match }) =>
           render:()=>(
             <NumberStatus
               title='Status'
+              // onClick={ ()=>this.jumpToStep(0) }
+              saveProspectInfo={this.saveProspectInfo}
               optionList={this.state.statusList}
             />
           ),
-          active:true
         },
         { 
           title:'Comment?',
           name:'comment',
           render: ()=>(
-            <NumberComment
+            <NumberComment  
+              saveProspectInfo={this.saveProspectInfo}
+              handleChange={(e)=>this.props.handleDataChange(e, this.state.number )} //handleChange}
               title='Any Comment?'
+              value={this.state.info.comment}
             />
-          ), },
+          ), 
+          active:true,
+        },
       ],
     };
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.saveProspectInfo = this.saveProspectInfo.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
 
   componentDidMount() {
-    this.setState({ match:this.props.match });
+
+    console.log('--DidMount -> props=', this.props )
+
+    this.setState({ 
+      number: this.props.number,
+      info: this.props.data.prospectInfo
+    });
+  }
+
+
+  handleChange(event) {
+    console.log(event.target.name);
+    const { info } = this.state;
+    info[event.target.name] = event.target.value;
+    this.setState({ info });
+  }
+
+
+
+  /**
+   * If iteration is not completed:
+   * - Deactivate current step's view
+   * -
+   * If iteration is completed;
+   * - submit data
+   * - clean prospect info
+   * @param {*} propName 
+   * @param {*} value 
+   */
+  saveProspectInfo(propName, value, index) {
+
+    console.log('????')
+
+    //this.jumpToStep(1) //
+
+    // !step.active && 
+    // let { steps, prospectInfo } = this.state;
+    // this.setState({ steps, prospectInfo });
+
+    // console.log('....', propName, index,  value);
+
+    // if(propName==='number' || propName==='isSupporter' || propName==='lawnSign') {
+    //   prospectInfo[propName] = value;
+    //   // console.log('...propName=', propName, value);
+    //   this.setState({ steps, prospectInfo });
+
+    //   this.jumpToStep(index + 1);
+    // }
+
+  }
+
+
+
+
+
+
+  jumpToStep(stepIndex) {
+    // console.log('Jump to: ', stepIndex);
+    const { steps } = this.state;
+    const step = steps[stepIndex];
+    if (!step.active) {
+      steps.forEach((item, index) => {
+        if(index!==stepIndex) {
+          item.active = false;
+        } else {
+          item.active = true;
+        }
+      });
+    }
+    this.setState({ steps })
   }
 
 
@@ -151,9 +233,8 @@ class NumberView extends React.Component { //({ match }) =>
 
   const title='dewdewdew',
   isSupporter='dq', lawnSign='dwqdwqdq', number='dwqdqww', stepName='dqwdqw', itemIndex=2;
-console.log('...>>>>', this.state.match);
+// console.log('...>>>>', this.state.match);
 
-    // <div>{ match.params.id }</div>
 
     if(this.state.redirectHome) {
       return <Redirect to='/' />;
@@ -161,11 +242,13 @@ console.log('...>>>>', this.state.match);
 
     return (
       <Route>
-      <section class='view'>
+      <section className='view'>
         {
           this.state.steps.map((step, index) => {
             return (
               <div
+                key={step.name}
+                onClick={ ()=>this.jumpToStep(index) }
                 className={`stepPanel stepPanel-${index + 1} ${step.active?`active`:``}`}
               >
                 { step.render() }
@@ -180,7 +263,7 @@ console.log('...>>>>', this.state.match);
         <div
           style={{ display:'none' }}
           className={`stepPanel `}
-          // onClick={this.props.onClick}
+          // onClick={ ()=>this.jumpToStep(index) }
         >
           <h3 className="stepPanel--info">
             <small>{ title }</small>
