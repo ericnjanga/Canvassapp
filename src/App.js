@@ -11,6 +11,15 @@ import VotingBox from './components/VotingBox/VotingBox.js';
 
 import NumberView from './terminals/NumberView.js';
 
+
+
+
+import AbsentIcon from '@material-ui/icons/PersonAddDisabled';
+import SupporterIcon from '@material-ui/icons/Favorite';
+import UndecidedIcon from '@material-ui/icons/Help';
+import NonSupporterIcon from '@material-ui/icons/ThumbDown';
+import CommentIcon from '@material-ui/icons/Comment';
+
 // alert('...resetSteps()');
 
 /**
@@ -69,7 +78,7 @@ class App extends Component {
                     {
                       id:'28F',
                       prospectInfo: {
-                        comment:'..28F comment here...',
+                        comment: null,
                       },
                     }
                   ],
@@ -78,7 +87,7 @@ class App extends Component {
                     {
                       id:'30S',
                       prospectInfo: {
-                        comment:'..Hey...',
+                        comment: null,
                       },
                     }
                   ],
@@ -87,7 +96,7 @@ class App extends Component {
                     {
                       id:'32',
                       prospectInfo: {
-                        comment:'..Hey...',
+                        comment: null,
                       },
                     }
                   ],
@@ -96,7 +105,7 @@ class App extends Component {
                     {
                       id:'34U',
                       prospectInfo: {
-                        comment:'..Hey...',
+                        comment: null,
                       },
                     }
                   ],
@@ -105,7 +114,7 @@ class App extends Component {
                     {
                       id:'30S',
                       prospectInfo: {
-                        comment:'..Hey...',
+                        comment: null,
                       },
                     }
                   ],
@@ -114,7 +123,7 @@ class App extends Component {
                     {
                       id:'36',
                       prospectInfo: {
-                        comment:'..Hey...',
+                        comment: null,
                       },
                     }
                   ],
@@ -123,7 +132,7 @@ class App extends Component {
                     {
                       id:'38A',
                       prospectInfo: {
-                        comment:'..Hey...',
+                        comment: null,
                       },
                     }
                   ],
@@ -132,7 +141,7 @@ class App extends Component {
                     {
                       id:'42',
                       prospectInfo: {
-                        comment:'..Hey...',
+                        comment: null,
                       },
                     }
                   ],
@@ -141,7 +150,7 @@ class App extends Component {
                     {
                       id:'44F',
                       prospectInfo: {
-                        comment:'..Hey...',
+                        comment: null,
                       },
                     }
                   ],
@@ -150,7 +159,7 @@ class App extends Component {
                     {
                       id:'46',
                       prospectInfo: {
-                        comment:'..Hey...',
+                        comment: null,
                       },
                     }
                   ],
@@ -159,7 +168,7 @@ class App extends Component {
                     {
                       id:'50U',
                       prospectInfo: {
-                        comment:'..Hey...',
+                        comment: null,
                       },
                     }
                   ],
@@ -178,7 +187,7 @@ class App extends Component {
                     {
                       id:'',
                       prospectInfo: {
-                        comment:'..Hey...',
+                        comment: null,
                       },
                     }
                   ],
@@ -187,7 +196,7 @@ class App extends Component {
                     {
                       id:'',
                       prospectInfo: {
-                        comment:'..Hey...',
+                        comment: null,
                       },
                     }
                   ],
@@ -196,7 +205,7 @@ class App extends Component {
                     {
                       id:'',
                       prospectInfo: {
-                        comment:'..Hey...',
+                        comment: null,
                       },
                     }
                   ],
@@ -205,7 +214,7 @@ class App extends Component {
                     {
                       id:'',
                       prospectInfo: {
-                        comment:'..Hey...',
+                        comment: null,
                       },
                     }
                   ],
@@ -214,7 +223,7 @@ class App extends Component {
                     {
                       id:'',
                       prospectInfo: {
-                        comment:'..Hey...',
+                        comment: null,
                       },
                     }
                   ],
@@ -223,7 +232,7 @@ class App extends Component {
                     {
                       id:'',
                       prospectInfo: {
-                        comment:'..Hey...',
+                        comment: null,
                       },
                     }
                   ],
@@ -232,7 +241,7 @@ class App extends Component {
                     {
                       id:'',
                       prospectInfo: {
-                        comment:'..Hey...',
+                        comment: null,
                       },
                     }
                   ],
@@ -241,7 +250,7 @@ class App extends Component {
                     {
                       id:'',
                       prospectInfo: {
-                        comment:'..Hey...',
+                        comment: null,
                       },
                     }
                   ],
@@ -250,7 +259,7 @@ class App extends Component {
                     {
                       id:'',
                       prospectInfo: {
-                        comment:'..Hey...',
+                        comment: null,
                       },
                     }
                   ],
@@ -259,7 +268,7 @@ class App extends Component {
                     {
                       id:'',
                       prospectInfo: {
-                        comment:'..Hey...',
+                        comment: null,
                       },
                     }
                   ],
@@ -268,7 +277,7 @@ class App extends Component {
                     {
                       id:'',
                       prospectInfo: {
-                        comment:'..Hey...',
+                        comment: null,
                       },
                     }
                   ],
@@ -288,7 +297,7 @@ class App extends Component {
                     {
                       id:'',
                       prospectInfo: {
-                        comment:'..Hey...',
+                        comment: null,
                       },
                     }
                   ],
@@ -297,7 +306,7 @@ class App extends Component {
                     {
                       id:'',
                       prospectInfo: {
-                        comment:'..Hey...',
+                        comment: null,
                       },
                     }
                   ],
@@ -306,7 +315,7 @@ class App extends Component {
                     {
                       id:'',
                       prospectInfo: {
-                        comment:'..Hey...',
+                        comment: null,
                       },
                     }
                   ],
@@ -315,7 +324,7 @@ class App extends Component {
                     {
                       id:'',
                       prospectInfo: {
-                        comment:'..Hey...',
+                        comment: null,
                       },
                     }
                   ],
@@ -324,7 +333,7 @@ class App extends Component {
                     {
                       id:'',
                       prospectInfo: {
-                        comment:'..Hey...',
+                        comment: null,
                       },
                     }
                   ],
@@ -333,7 +342,7 @@ class App extends Component {
                     {
                       id:'',
                       prospectInfo: {
-                        comment:'..Hey...',
+                        comment: null,
                       },
                     }
                   ],
@@ -342,7 +351,7 @@ class App extends Component {
                     {
                       id:'',
                       prospectInfo: {
-                        comment:'..Hey...',
+                        comment: null,
                       },
                     }
                   ],
@@ -351,7 +360,7 @@ class App extends Component {
                     {
                       id:'',
                       prospectInfo: {
-                        comment:'..Hey...',
+                        comment: null,
                       },
                     }
                   ],
@@ -360,7 +369,7 @@ class App extends Component {
                     {
                       id:'',
                       prospectInfo: {
-                        comment:'..Hey...',
+                        comment: null,
                       },
                     }
                   ],
@@ -369,7 +378,7 @@ class App extends Component {
                     {
                       id:'',
                       prospectInfo: {
-                        comment:'..Hey...',
+                        comment: null,
                       },
                     }
                   ],
@@ -378,7 +387,7 @@ class App extends Component {
                     {
                       id:'',
                       prospectInfo: {
-                        comment:'..Hey...',
+                        comment: null,
                       },
                     }
                   ],
@@ -396,6 +405,7 @@ class App extends Component {
         lawnSign: '',     // Wants the candidate sign on property lawn
       },
     };
+    // this.handleSelection = this.handleSelection.bind(this);
     this.handleDataChange = this.handleDataChange.bind(this);
   }
 
@@ -409,6 +419,7 @@ class App extends Component {
 
     this.setState({ activeNumbersList });
   }
+
 
   /**
    * Stop steps iterations:
@@ -429,10 +440,16 @@ class App extends Component {
     activeNumbersList.get(id, item);
 
 
-    console.log('....item=', item.prospectInfo[e.target.name]);
+    console.log('....e.target.value=', e.target.value);
+    // console.log('....item=', item.prospectInfo[e.target.name]);
     // prospectInfo[e.target.name] = e.target.value;
     this.setState({ activeNumbersList });
   }
+
+
+  // handleSelection(e, id){
+  //   console.log('- handleSelection = ', e.target.name, ' - ', id);
+  // }
 
 
   /**
@@ -532,6 +549,7 @@ class App extends Component {
                       <NumberView
                         number={props.match.params.id}
                         data={ this.state.activeNumbersList.get(props.match.params.id) }
+                        // handleSelection={this.handleSelection}
                         handleDataChange={this.handleDataChange}
                       />
                     )
@@ -626,17 +644,38 @@ const ListOfNumbers = ({ list }) => {
         newList.map(item => (
           <Link
             key={item.id}
-            className="button btn-primary square"
+            className={`button square ${(item.prospectInfo.status?`btn-secondary crossed`:`btn-primary`)}`}
             // color="primary"
             to={`/${item.id}`}
           >
             { item.id }
+            <StatusIcon
+              className="square--info"
+              {...item.prospectInfo}
+            />
           </Link> 
         ))
       }
     </section>
   )
 };
+
+
+const StatusIcon = ({ status, comment, className }) => {
+  if(!status) {
+    return false;
+  }
+  return(
+    <span className={className}>
+      { status==='absent' && <AbsentIcon /> }
+      { status==='yes' && <SupporterIcon /> }
+      { status==='undecided' && <UndecidedIcon /> }
+      { status==='no' && <NonSupporterIcon /> }
+      { comment && <CommentIcon /> }
+    </span>
+  );
+};
+
 
 export default App;
 

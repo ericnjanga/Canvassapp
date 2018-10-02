@@ -11,12 +11,12 @@ import NonSupporterIcon from '@material-ui/icons/ThumbDown';
 
 
 
-const NumberStatus = ({ title, optionList }) => {
+const NumberStatus = ({ title, value, optionList, handleDataChange }) => {
   return(
     <React.Fragment>
-      <h3>{ title }</h3>
+      <h3 className="stepPanel--content">{ title }</h3>
 
-      <ul className="list-unstyled list-inline">
+      <ul className="list-unstyled list-inline stepPanel--content">
         {
           optionList.map(option => {
             return (
@@ -25,11 +25,13 @@ const NumberStatus = ({ title, optionList }) => {
                 className="list-inline-item">
                 <Button
                   className="stepPanel__option"
-                  // color={ this.activateButton(stepName, option, isSupporter, lawnSign) }
-                  // onClick={()=>{ this.recVal(stepName, option, itemIndex)} }
+                  onClick={handleDataChange}
+                  name="status"
+                  value={option.text}
+                  color={(value===option.text?`primary`:``)}
                 >
-                  { option.icon() }
-                  <small>{ option.text }</small>
+                  <small className="avoid-clicks">{ option.icon() }</small>
+                  <small className="avoid-clicks">{ option.text }</small>
                 </Button>
               </li>
             )
@@ -37,22 +39,25 @@ const NumberStatus = ({ title, optionList }) => {
         }
       </ul>
 
+      <h3 className="stepPanel--info">
+        {
+          !value && 'No status yet'
+        }
 
-{/* <h3 className="stepPanel--info">
-  <small>{ 'Is the person absent? title' }</small>
-  
-  <Badge color="primary">
-    {
-      stepName==='isSupporter' && isSupporter
-    }
-    {
-      stepName==='lawnSign' && lawnSign
-    }
-    {
-      stepName==='number' && number
-    }
-  </Badge>
-</h3> */}
+        {
+          value && 
+          <React.Fragment>
+            <small>{ 'How this person feels about the candidate?' }</small>
+            <Badge color="primary">
+              { value==='absent' && 'Person was absent' }
+              { value==='yes' && 'Is a supporter' }
+              { value==='no' && 'Not a supporter' }
+              { value==='undecided' && 'Still undecided' }
+            </Badge>
+          </React.Fragment>
+        }
+      </h3>
+
     </React.Fragment>
   );
 };
@@ -62,8 +67,8 @@ const NumberStatus = ({ title, optionList }) => {
 const NumberComment = ({ title, value, handleChange }) => {
   return(
     <React.Fragment>
-      <h3>{ title }</h3>
-      <div className="form-group">
+      <h3 className="stepPanel--content">{ title }</h3>
+      <div className="form-group stepPanel--content">
         {/* <label for="exampleFormControlTextarea1">Example textarea</label> */}
         <textarea
           name="comment"
@@ -74,14 +79,23 @@ const NumberComment = ({ title, value, handleChange }) => {
         />
       </div>
 
-      {/* <div>
-        <Button
-          // color={ this.activateButton(stepName, option, isSupporter, lawnSign) }
-           } }
-          >
-          SAVE
-        </Button>
-      </div> */}
+      <h3 className="stepPanel--info">
+        {
+          !value && 'No comments yet'
+        }
+
+        {
+          value && 
+          <React.Fragment>
+            <small>{ 'Any comment left?' }</small>
+            <Badge color="primary">
+              { value }
+            </Badge>
+          </React.Fragment>
+        }
+      </h3>
+
+      
     </React.Fragment>
   );
 };
@@ -120,11 +134,13 @@ class NumberView extends React.Component {
           render:()=>(
             <NumberStatus
               title='Status'
-              // onClick={ ()=>this.jumpToStep(0) }
+              value={this.state.info.status}
+              handleDataChange={(e)=>this.props.handleDataChange(e, this.state.number)}
               saveProspectInfo={this.saveProspectInfo}
               optionList={this.state.statusList}
             />
           ),
+          active:true,
         },
         { 
           title:'Comment?',
@@ -133,11 +149,10 @@ class NumberView extends React.Component {
             <NumberComment  
               saveProspectInfo={this.saveProspectInfo}
               handleChange={(e)=>this.props.handleDataChange(e, this.state.number )} //handleChange}
-              title='Any Comment?'
+              title='Comment'
               value={this.state.info.comment}
             />
           ), 
-          active:true,
         },
       ],
     };
@@ -304,28 +319,7 @@ class NumberView extends React.Component {
           </div>
 
 
-          
-        
-          
-          {
-            /*this.props.type === 'textInput' &&  */
-            <div className="input-group">
-              <input
-                className="form-control"
-                type="text"
-                name="number"
-                value={ number}
-                // onChange={this.props.handleChange}
-              />
-              <div className="input-group-append">
-                <Button
-                  // onClick={()=>this.recVal(stepName, this.props.number, itemIndex)}
-                >ok</Button>
-              </div>
-            </div>
-          }
-
-
+  
 
 
           {
