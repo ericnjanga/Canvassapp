@@ -1,24 +1,27 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
  
-import { Button, Badge } from 'reactstrap';
-import logo from './logo.svg';
+import { Badge } from 'reactstrap';
+import LocationIcon from '@material-ui/icons/LocationOn'; 
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-
-import VotingBox from './components/VotingBox/VotingBox.js';
+ 
 
 import NumberView from './terminals/NumberView.js';
 
+import AppBar from './terminals/AppBar.js';
+import AppDrawer from './terminals/AppDrawer.js';
 
 
 
-import AbsentIcon from '@material-ui/icons/PersonAddDisabled';
-import SupporterIcon from '@material-ui/icons/Favorite';
+import AbsentIcon from '@material-ui/icons/CallMissedOutgoing';
+import SupporterIcon from '@material-ui/icons/SentimentVerySatisfied';
 import UndecidedIcon from '@material-ui/icons/Help';
-import NonSupporterIcon from '@material-ui/icons/ThumbDown';
-import CommentIcon from '@material-ui/icons/Comment';
+import NonSupporterIcon from '@material-ui/icons/SentimentVeryDissatisfied';
+import PosterSignIcon from '@material-ui/icons/PictureInPicture';
+import CommentIcon from '@material-ui/icons/Comment'; 
+import CompletedIcon from '@material-ui/icons/DoneOutline';
 
 // alert('...resetSteps()');
 
@@ -52,6 +55,9 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      drawer: {
+        active: false,
+      },
       streetsList: [
         {
           id: '-street-0',
@@ -405,7 +411,7 @@ class App extends Component {
         lawnSign: '',     // Wants the candidate sign on property lawn
       },
     };
-    // this.handleSelection = this.handleSelection.bind(this);
+    this.toggleDrawer = this.toggleDrawer.bind(this);
     this.handleDataChange = this.handleDataChange.bind(this);
   }
 
@@ -421,13 +427,15 @@ class App extends Component {
   }
 
 
-  /**
-   * Stop steps iterations:
-   * - If prospect is not a supporter
-   * - 
-   */
-  stopStep() {
+
+  toggleDrawer() {
+    const { drawer } = this.state;
+    drawer.active = !drawer.active;
+    this.setState({ drawer });
   }
+
+
+  
 
 
 
@@ -489,42 +497,26 @@ class App extends Component {
       } else {
         element.active = false;
       }
-      // console.log('....index', index);
     });
   }
 
-
-  // saveProspectInfo(propName, value, data) {
-  //   if(propName==='number' || propName==='isSupporter' || propName==='lawnSign') {
-  //     data[propName] = value;
-  //     console.log('...propName=', propName, value);
-  //   }
-  //   return data;
-  // }
-
+ 
 
 
   render() {
     return (
       <Router>
         <div className="App">
-          <header className="App-header">
-            {/* <img src={logo} className="App-logo" alt="logo" /> */}
-            <h1 className="App-title">Canvassing App</h1>
-            <p style={{ margin:0, color:'#ccc' }}>
-              <Link to="/">
-                <Badge>
-                  { this.state.streetsList[0].name } 
-                </Badge>
-              </Link>
+          <AppBar
+            toggleDrawer={this.toggleDrawer}
+          />
 
-              <Route
-                exact
-                path="/:id"
-                render={NumberBadge}
-              />
-            </p>
-          </header>
+          <AppDrawer
+            {...this.state.drawer}
+            toggleDrawer={this.toggleDrawer}
+            dataList={this.state.activeNumbersList}
+          />
+          
           <div className="App-intro"> 
 
             <Route
@@ -535,21 +527,14 @@ class App extends Component {
 
             {
               this.state.activeNumbersList && <Route
-                path={`/:id`}
-                // component={NumberView}
+                path={`/:id`} 
                 render={ 
                   (props)=>{
-                    // console.log('----esss-')
-
-                    // console.log('***match.params.id=',props.match.params.id )
-                    // console.log('***----=', this.state.activeNumbersList.get(props.match.params.id) )
-
-
+                    
                     return(
                       <NumberView
                         number={props.match.params.id}
-                        data={ this.state.activeNumbersList.get(props.match.params.id) }
-                        // handleSelection={this.handleSelection}
+                        data={ this.state.activeNumbersList.get(props.match.params.id) } 
                         handleDataChange={this.handleDataChange}
                       />
                     )
@@ -557,51 +542,8 @@ class App extends Component {
                 }
               />
             }
-
-            {/* {
-              this.state.steps.map((step, index) => { 
-                return(
-                  <VotingBox
-                    key={index}
-                    {...step}
-                    {...this.state.prospectInfo}
-                    className={`step${index + 1} ${step.active?`active`:``}`}
-                    itemIndex={index}
-                    handleChange={this.handleDataChange}
-                    handleSubmit={this.saveProspectInfo} 
-                    onClick={ ()=>this.jumpToStep(index) }
-                  />
-                )
-              })
-            } */}
-          
-            {/* To get started, edit <code>src/App.js</code> and save to reload. */}
           </div>
-          {/* <div style={{ position:'absolute', top:'20px', right:'20px' }}>
-            <button onClick={this.saveProspectInfo}>New <b>Street / Building</b> Canvassing</button>
-            <div>
-              <label>Street / Building name</label>
-              <input type="text" placeholder="Street / Building name" />
-            </div>
-            <div>
-              <label>Select an existing one:</label>
-              <select>
-                <option>Recorded Street 1</option>
-                <option>Recorded Street 2</option>
-                <option>Recorded Street 3</option>
-                <option>Recorded Street 4</option>
-              </select>
-            </div>
-          </div>
-
-
-          <div style={{ position:'absolute', top:'90px', right:'20px' }}>
-            <button onClick={this.saveProspectInfo}>Start Recording</button>
-          </div> */}
-
-
-            <p style={{position:'absolute', fontSize:'.8rem', top:'5px', color:'lime'}}><small>Inspiration: Google Calendar App</small></p>
-        
+           
         </div>
       </Router>
     );
@@ -644,7 +586,7 @@ const ListOfNumbers = ({ list }) => {
         newList.map(item => (
           <Link
             key={item.id}
-            className={`button square ${(item.prospectInfo.status?`btn-secondary crossed`:`btn-primary`)}`}
+            className={`button square ${(item.prospectInfo.status?`btn-secondary`:`btn-primary active`)}`}
             // color="primary"
             to={`/${item.id}`}
           >
@@ -661,18 +603,28 @@ const ListOfNumbers = ({ list }) => {
 };
 
 
-const StatusIcon = ({ status, comment, className }) => {
+const StatusIcon = ({ status, comment, sign, className }) => {
   if(!status) {
     return false;
   }
   return(
-    <span className={className}>
-      { status==='absent' && <AbsentIcon /> }
-      { status==='yes' && <SupporterIcon /> }
-      { status==='undecided' && <UndecidedIcon /> }
-      { status==='no' && <NonSupporterIcon /> }
-      { comment && <CommentIcon /> }
-    </span>
+    <React.Fragment>
+      <span className="icon-completed-frame">
+        <CompletedIcon
+          className="icon-completed"
+        />
+      </span>
+
+      <span className={className}>
+        { status==='absent' && <AbsentIcon style={{ fontSize:'12px'}} /> }
+        { status==='yes' && <SupporterIcon style={{ fontSize:'12px'}} /> }
+        { status==='undecided' && <UndecidedIcon style={{ fontSize:'12px'}} /> }
+        { status==='no' && <NonSupporterIcon style={{ fontSize:'12px'}} /> }
+        { sign==='small' && <PosterSignIcon style={{ fontSize:'12px'}} /> }
+        { sign==='big' && <PosterSignIcon style={{ fontSize:'12px'}} /> }
+        { comment && <CommentIcon style={{ fontSize:'12px'}} /> }
+      </span>
+    </React.Fragment>
   );
 };
 

@@ -4,55 +4,87 @@ import { Button, Badge } from 'reactstrap';
 import { BrowserRouter as Route, Redirect } from "react-router-dom";
 
 
-import AbsentIcon from '@material-ui/icons/PersonAddDisabled';
-import SupporterIcon from '@material-ui/icons/Favorite';
+import AbsentIcon from '@material-ui/icons/CallMissedOutgoing';
+import SupporterIcon from '@material-ui/icons/SentimentVerySatisfied';
 import UndecidedIcon from '@material-ui/icons/Help';
-import NonSupporterIcon from '@material-ui/icons/ThumbDown';
+import NonSupporterIcon from '@material-ui/icons/SentimentVeryDissatisfied';
+import PosterSignIcon from '@material-ui/icons/PictureInPicture';
 
 
 
-const NumberStatus = ({ title, value, optionList, handleDataChange }) => {
+const NumberStatus = ({ title, statusValue, signValue, optionList, signList, handleDataChange }) => {
   return(
     <React.Fragment>
-      <h3 className="stepPanel--content">{ title }</h3>
+      <div className="stepPanel--content">
+        <h3>{ title }</h3>
 
-      <ul className="list-unstyled list-inline stepPanel--content">
-        {
-          optionList.map(option => {
-            return (
-              <li
-                key={option.text}
-                className="list-inline-item">
-                <Button
-                  className="stepPanel__option"
-                  onClick={handleDataChange}
-                  name="status"
-                  value={option.text}
-                  color={(value===option.text?`primary`:``)}
-                >
-                  <small className="avoid-clicks">{ option.icon() }</small>
-                  <small className="avoid-clicks">{ option.text }</small>
-                </Button>
-              </li>
-            )
-          })
-        }
-      </ul>
+        <ul className="list-unstyled list-inline">
+          {
+            optionList.map(option => {
+              return (
+                <li
+                  key={option.text}
+                  className="list-inline-item">
+                  <Button
+                    className="stepPanel__option"
+                    onClick={handleDataChange}
+                    name="status"
+                    value={option.text}
+                    color={(statusValue===option.text?`primary`:``)}
+                  >
+                    <small className="avoid-clicks">{ option.icon() }</small>
+                    <small className="avoid-clicks">{ option.text }</small>
+                  </Button>
+                </li>
+              )
+            })
+          }
+        </ul>
+      </div>
+      
+      {
+        (statusValue==='yes' || statusValue==='undecided') && 
+        <div className="stepPanel--content" style={{ marginTop:'30px'}}>
+          <h3>Needs a sign?</h3>
+          {
+            signList.map(option => {
+              return (
+                <li
+                  key={option.text}
+                  className="list-inline-item">
+                  <Button
+                    className="stepPanel__option"
+                    onClick={handleDataChange}
+                    name="sign"
+                    value={option.text}
+                    color={(signValue===option.text?`primary`:``)}
+                  >
+                    <small className="avoid-clicks">{ option.icon() }</small>
+                    <small className="avoid-clicks">{ option.text }</small>
+                  </Button>
+                </li>
+              )
+            })
+          }
+        </div>
+      }
+      
+
 
       <h3 className="stepPanel--info">
         {
-          !value && 'No status yet'
+          !statusValue && 'No status yet'
         }
 
         {
-          value && 
+          statusValue && 
           <React.Fragment>
             <small>{ 'How this person feels about the candidate?' }</small>
             <Badge color="primary">
-              { value==='absent' && 'Person was absent' }
-              { value==='yes' && 'Is a supporter' }
-              { value==='no' && 'Not a supporter' }
-              { value==='undecided' && 'Still undecided' }
+              { statusValue==='absent' && 'Person was absent' }
+              { statusValue==='yes' && 'Is a supporter' }
+              { statusValue==='no' && 'Not a supporter' }
+              { statusValue==='undecided' && 'Still undecided' }
             </Badge>
           </React.Fragment>
         }
@@ -127,6 +159,16 @@ class NumberView extends React.Component {
           icon: ()=><NonSupporterIcon />
         },
       ],
+      signList: [
+        {
+          text: 'small',
+          icon: ()=><PosterSignIcon />
+        },
+        {
+          text: 'big',
+          icon: ()=><PosterSignIcon style={{ fontSize:'50px'}} />
+        },
+      ],
       steps: [
         { 
           title:'Status',
@@ -134,10 +176,12 @@ class NumberView extends React.Component {
           render:()=>(
             <NumberStatus
               title='Status'
-              value={this.state.info.status}
+              statusValue={this.state.info.status}
+              signValue={this.state.info.sign}
               handleDataChange={(e)=>this.props.handleDataChange(e, this.state.number)}
               saveProspectInfo={this.saveProspectInfo}
               optionList={this.state.statusList}
+              signList={this.state.signList}
             />
           ),
           active:true,
