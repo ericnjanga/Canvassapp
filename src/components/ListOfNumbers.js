@@ -1,5 +1,5 @@
-
 import React from 'react';
+// Note: removing "Router" creates serious rendering issues
 import { BrowserRouter as Router, Link } from "react-router-dom";
 
 import StatusIcon from './StatusIcon.js';

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 
 import { streetsList, numberLists } from './settings/setting1.js';
 
@@ -41,17 +41,25 @@ class App extends Component {
 
   /**
    * Transpert incoming lists into states
+   * - Get active street
+   * - Active street numbers (from active street)
+   * - Save in the state
    */
   componentDidMount() {
-    let activeNumbersList = numberLists.get('-street-0').list;
-    this.setState({ numberLists, activeNumbersList, numberLists });
+    const activeStreet = streetsList[1]; //active street (by default)
+    let activeNumbersList = numberLists.get(activeStreet.id).list;
+    this.setState({ activeNumbersList, numberLists, activeStreet });
   }
 
   /**
    * 
    */
-  handleStreetChange() {
-    console.log('?????')
+  handleStreetChange(event) {
+    const activeStreet = streetsList.filter(streetItem => {
+      return streetItem.id===event.target.value
+    })[0];
+    let activeNumbersList = numberLists.get(activeStreet.id).list;
+    this.setState({ activeNumbersList, activeStreet });
   }
 
   
@@ -84,12 +92,14 @@ class App extends Component {
         <div className="App">
           <AppBar
             streetsList={streetsList}
+            activeStreet={this.state.activeStreet}
             toggleDrawer={this.toggleDrawer}
             handleStreetChange={this.handleStreetChange}
           />
 
           <AppDrawer
             {...this.state.drawer}
+            activeStreet={this.state.activeStreet}
             toggleDrawer={this.toggleDrawer}
             dataList={this.state.activeNumbersList}
           />
@@ -102,7 +112,6 @@ class App extends Component {
             data={this.state.activeNumbersList}
             handleDataChange={this.handleDataChange}
           />
-
         </div>
       </Router>
     );

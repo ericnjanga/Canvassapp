@@ -34,12 +34,11 @@ const styles = theme => ({
 
 class DropdownSelect extends React.Component {
   state = {
-    activeOption: '',
   };
 
   componentDidMount() {
     const { list } = this.props;
-    this.setState({ list, activeOption:list[0].id });
+    this.setState({ list }); //, activeOption:list[0].id 
   }
 
   // handleChange = event => {
@@ -58,7 +57,7 @@ class DropdownSelect extends React.Component {
         <FormControl className={`${classes.formControl} appBar-selector`}>
           <Select
             className={classes.select}
-            value={this.state.activeOption}
+            value={this.props.defaultStreet}
             onChange={this.props.handleChange}
             inputProps={{
               name: 'street',

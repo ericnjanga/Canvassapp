@@ -54,7 +54,7 @@ class TemporaryDrawer extends React.Component {
 
     const totalStreets = this.props.dataList.size;
 
-    const { classes } = this.props;
+    const { classes, activeStreet } = this.props;
     const dataList = Array.from( this.props.dataList.values() );
 
     
@@ -92,8 +92,8 @@ class TemporaryDrawer extends React.Component {
           component="nav"
           onClick={this.props.toggleDrawer}
         >
-          <header button style={{ position:'relative', paddingBottom:'25px' }}>
-            <ListItem butto>
+          <header style={{ position:'relative', paddingBottom:'25px' }}>
+            <ListItem button>
               <h1 className="appBar-title">{ appInfo.name }</h1>
             </ListItem>
 
@@ -104,12 +104,16 @@ class TemporaryDrawer extends React.Component {
                 />
               </ListItemIcon>
 
-              <Badge classes={{ badge: classes.badge }} color="secondary" badgeContent={totalStreets}>
-                <ListItemText
-                  style={{ paddingLeft:'5px' }}
-                  primary="John Garland Blv"
-                />
-              </Badge> 
+              {
+                activeStreet &&
+                <Badge classes={{ badge: classes.badge }} color="secondary" badgeContent={totalStreets}>
+                  <ListItemText
+                    style={{ paddingLeft:'5px' }}
+                    primary={ activeStreet.name }
+                  />
+                </Badge>
+              }
+               
             </ListItem>
 
           </header>

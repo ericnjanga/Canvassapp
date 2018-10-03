@@ -1,4 +1,5 @@
 import React from 'react';
+// Note: removing "Router" creates serious rendering issues
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import NumberView from './../../terminals/Number/NumberView.js';
 

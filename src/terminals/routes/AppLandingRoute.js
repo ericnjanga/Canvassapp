@@ -1,4 +1,5 @@
 import React from 'react';
+// Note: removing "Router" creates serious rendering issues
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import ListOfNumbers from './../../components/ListOfNumbers.js';
 
@@ -31,10 +32,6 @@ const AppLandingRoute = ({ data }) => {
     />
   );
 };
-
-
-
-
 
 
 export default AppLandingRoute;

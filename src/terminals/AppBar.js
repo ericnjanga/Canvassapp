@@ -39,10 +39,7 @@ class PrimarySearchAppBar extends React.Component {
   };
 
   render() {
-    const { anchorEl, mobileMoreAnchorEl } = this.state;
-    const { classes, streetsList } = this.props;
-
-    console.log('-streetsList=', streetsList)
+    const { classes, streetsList, activeStreet } = this.props;
 
     return (
       <div className={classes.root}>
@@ -57,10 +54,14 @@ class PrimarySearchAppBar extends React.Component {
               { appInfo.name }
             </Typography>
             <div className={classes.search}>
-              <StreetSelector
-                list={streetsList}
-                handleChange={this.props.handleStreetChange}
-              />
+              {
+                activeStreet &&
+                <StreetSelector
+                  list={streetsList}
+                  defaultStreet={activeStreet.id}
+                  handleChange={this.props.handleStreetChange}
+                />
+              }
             </div>
             <div className={classes.grow} />
           </Toolbar>
