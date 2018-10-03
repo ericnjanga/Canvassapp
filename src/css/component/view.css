@@ -1,0 +1,19 @@
+
+
+/**
+ * View 
+ * -------------------------
+*/
+
+
+.view {
+  padding-top: 60px; /* for fixed appBar */
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+.view--footer {
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+}

@@ -1,0 +1,17 @@
+
+
+/**
+ * Utilities
+ * -------------------------
+*/
+
+.appBar-title {
+  font-size: 1.5em;
+}
+
+.appBar-selector svg {
+  color: #ccc;
+}
+.appBar-selector > div:before {
+  border-bottom: 1px solid #ccc;
+}

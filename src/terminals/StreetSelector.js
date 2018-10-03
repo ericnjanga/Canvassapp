@@ -1,12 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
+import { withStyles } from '@material-ui/core/styles'; 
+import MenuItem from '@material-ui/core/MenuItem'; 
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+
+
+/**
+ * Street Selector:
+ * - Renders the list of street in a dropdown
+ * --------------------------------
+ */
 
 
 const styles = theme => ({
@@ -17,15 +21,13 @@ const styles = theme => ({
   formControl: {
     margin: theme.spacing.unit,
     minWidth: 120,
-    width: '100%',
-    // border: '10px solid red',
+    width: '100%', 
   },
   selectEmpty: {
     marginTop: theme.spacing.unit * 2,
   },
   select: {
-    color: '#fff!important',
-    // width: '100%',
+    color: '#fff!important', 
     textAlign: 'left',
   },
 });
@@ -59,7 +61,6 @@ class SimpleSelect extends React.Component {
     return (
       <form className={classes.root} autoComplete="off">
         <FormControl className={`${classes.formControl} appBar-selector`}>
-          {/* <InputLabel htmlFor="street-simple">street</InputLabel> */}
           <Select
             className={classes.select}
             value={this.state.streetsList[0].id}
@@ -81,17 +82,8 @@ class SimpleSelect extends React.Component {
                 );
               })
             }
-            {/* <MenuItem value="">
-              <em>None</em>
-            </MenuItem> */}
-            {/* <MenuItem value={0}>John Garland Blv</MenuItem>
-            <MenuItem value={1}>Twenty</MenuItem>
-            <MenuItem value={2}>Thirty</MenuItem> */}
           </Select>
         </FormControl>
-         
-        
-        
       </form>
     );
   }

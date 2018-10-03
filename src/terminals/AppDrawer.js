@@ -2,22 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
-import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
-
 import Badge from '@material-ui/core/Badge';
-
-
-// import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-// import Divider from '@material-ui/core/Divider';
-
-
-
-
 
 import AbsentIcon from '@material-ui/icons/CallMissedOutgoing';
 import SupporterIcon from '@material-ui/icons/SentimentVerySatisfied';
@@ -27,14 +17,14 @@ import PosterSignIcon from '@material-ui/icons/PictureInPicture';
 import CommentIcon from '@material-ui/icons/Comment';  
 import NotCompletedIcon from '@material-ui/icons/LineWeight';
 import CompletedIcon from '@material-ui/icons/DoneOutline';
-
-
- 
-
- 
-
-
 import LocationIcon from '@material-ui/icons/LocationOn';
+
+
+
+/**
+ * App Drawer
+ * --------------------------------
+ */
 
 
 const styles = theme => ({
@@ -90,13 +80,6 @@ class TemporaryDrawer extends React.Component {
     const totalCompleted = dataList.filter(data => {
       return data.prospectInfo.status;
     }).length;
-
-    // if (this.props.dataList) {
-      console.log(Array.from( this.props.dataList.values() ));
-      console.log(this.props.dataList.size);
-      console.log('.....', totalComments);
-
-    // }
  
 
     
@@ -108,7 +91,7 @@ class TemporaryDrawer extends React.Component {
         >
           <header button style={{ position:'relative', paddingBottom:'25px' }}>
             <ListItem butto>
-              <h1 className="App-title">Canvassing App</h1>
+              <h1 className="appBar-title">Canvassing App</h1>
             </ListItem>
 
             <ListItem button style={{ position:'absolute', top:'35px', width:'100%' }}>

@@ -1,0 +1,50 @@
+
+
+/**
+ * Square (represents a square button)
+ * -------------------------
+*/
+
+
+.button.square {
+  margin: 1px;
+  display: flex;
+  align-items: flex-end;
+  height: 90px;
+  position: relative;
+  color: #ccc;
+  width: calc(25% - 2px);
+  padding: 10px;
+  border-radius: 4px;
+}
+.square--info {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  position: absolute;
+  right: 10px;
+  bottom: 15px;
+  z-index: 6;
+}
+.square--info * {
+  color: #ffc107;
+  margin-left: 1px;
+}
+.button.square:not(.active) .icon-completed-frame {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  top: 10%;
+}
+.button.square:not(.active) .icon-completed-frame .icon-completed {
+  font-size: 40px;
+  color: #fff;
+}
+ 
+.button.square.active {
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: #fff;
+} 
