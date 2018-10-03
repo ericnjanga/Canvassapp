@@ -18,11 +18,11 @@ export const streetsList = [
   },
   {
     id: '-street-1',
-    name: 'John Garland Blv',
+    name: 'Beaver Bend Cres',
   },
   {
     id: '-street-2',
-    name: 'John Garland Blv',
+    name: 'Ernest Dockray Ave',
   },
 ];
 

@@ -20,6 +20,9 @@ import CompletedIcon from '@material-ui/icons/DoneOutline';
 import LocationIcon from '@material-ui/icons/LocationOn';
 
 
+import { appInfo } from './../settings/settings2.js';
+
+
 
 /**
  * App Drawer
@@ -91,7 +94,7 @@ class TemporaryDrawer extends React.Component {
         >
           <header button style={{ position:'relative', paddingBottom:'25px' }}>
             <ListItem butto>
-              <h1 className="appBar-title">Canvassing App</h1>
+              <h1 className="appBar-title">{ appInfo.name }</h1>
             </ListItem>
 
             <ListItem button style={{ position:'absolute', top:'35px', width:'100%' }}>

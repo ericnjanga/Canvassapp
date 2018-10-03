@@ -32,46 +32,41 @@ const styles = theme => ({
   },
 });
 
-class SimpleSelect extends React.Component {
+class DropdownSelect extends React.Component {
   state = {
-    streetsList: [
-      {
-        id: 0,
-        name: 'John Garland Blv',
-      },
-      {
-        id: 1,
-        name: 'Beaver Bend Cres',
-      },
-      {
-        id: 2,
-        name: 'Ernest Dockray Ave',
-      },
-    ],
-    name: 'hai',
+    activeOption: '',
   };
 
-  handleChange = event => {
-    this.setState({ [event.target.name]: event.target.value });
-  };
+  componentDidMount() {
+    const { list } = this.props;
+    this.setState({ list, activeOption:list[0].id });
+  }
+
+  // handleChange = event => {
+  //   this.setState({ activeOption: event.target.value });
+  // };
 
   render() {
     const { classes } = this.props;
+
+    if(!this.state.list) {
+      return false;
+    }
 
     return (
       <form className={classes.root} autoComplete="off">
         <FormControl className={`${classes.formControl} appBar-selector`}>
           <Select
             className={classes.select}
-            value={this.state.streetsList[0].id}
-            onChange={this.handleChange}
+            value={this.state.activeOption}
+            onChange={this.props.handleChange}
             inputProps={{
               name: 'street',
               id: 'street-simple',
             }}
           >
             {
-              this.state.streetsList.map(item => {
+              this.state.list.map(item => {
                 return(
                   <MenuItem
                     key={item.id}
@@ -89,8 +84,8 @@ class SimpleSelect extends React.Component {
   }
 }
 
-SimpleSelect.propTypes = {
+DropdownSelect.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(SimpleSelect);
+export default withStyles(styles)(DropdownSelect);

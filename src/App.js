@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
-import { numberLists } from './settings/setting1.js';
+import { streetsList, numberLists } from './settings/setting1.js';
 
 import AppBar from './terminals/AppBar.js';
 import AppDrawer from './terminals/AppDrawer.js';
@@ -35,6 +35,7 @@ class App extends Component {
     };
     this.toggleDrawer = this.toggleDrawer.bind(this);
     this.handleDataChange = this.handleDataChange.bind(this);
+    this.handleStreetChange = this.handleStreetChange.bind(this);
   }
 
 
@@ -43,7 +44,14 @@ class App extends Component {
    */
   componentDidMount() {
     let activeNumbersList = numberLists.get('-street-0').list;
-    this.setState({ activeNumbersList, numberLists });
+    this.setState({ numberLists, activeNumbersList, numberLists });
+  }
+
+  /**
+   * 
+   */
+  handleStreetChange() {
+    console.log('?????')
   }
 
   
@@ -75,7 +83,9 @@ class App extends Component {
       <Router>
         <div className="App">
           <AppBar
+            streetsList={streetsList}
             toggleDrawer={this.toggleDrawer}
+            handleStreetChange={this.handleStreetChange}
           />
 
           <AppDrawer
