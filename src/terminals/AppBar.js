@@ -30,6 +30,9 @@ const styles = theme => ({
       display: 'block',
     },
   },
+  dropdown: {
+    width: '100%',
+  },
 });
 
 class PrimarySearchAppBar extends React.Component {
@@ -53,10 +56,11 @@ class PrimarySearchAppBar extends React.Component {
             <Typography className={classes.title} variant="title" color="inherit" noWrap>
               { appInfo.name }
             </Typography>
-            <div className={classes.search}>
+            <div className={classes.dropdown}>
               {
                 activeStreet &&
                 <StreetSelector
+                  
                   list={streetsList}
                   defaultStreet={activeStreet.id}
                   handleChange={this.props.handleStreetChange}
