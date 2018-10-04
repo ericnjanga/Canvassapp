@@ -25,7 +25,10 @@ const AppLandingRoute = ({ data }) => {
       render={
         () => (
           <div className="view">
-            <ListOfNumbers list={data} />
+            <ListOfNumbers
+              list={data}
+              className="grid-of-numbers"
+            />
           </div>
         )
       }

@@ -81,7 +81,7 @@
 
 
 
-.square-listing {
+.grid-of-numbers {
   display: flex;
   flex-wrap: wrap;
   /* background: #333; */

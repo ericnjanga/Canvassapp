@@ -100,7 +100,7 @@ class NumberView extends React.Component {
   componentDidMount() {
 
 
-  alert('preview number view on mobile and improve steps transition and data entering')
+    alert('preview number view on mobile and improve steps transition and data entering')
 
     this.setState({ 
       number: this.props.number,
