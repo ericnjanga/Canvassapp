@@ -1,6 +1,5 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
-import { Button } from 'reactstrap';
 import { BrowserRouter as Route, Redirect } from "react-router-dom";
 
 import AbsentIcon from '@material-ui/icons/CallMissedOutgoing';
@@ -9,8 +8,11 @@ import UndecidedIcon from '@material-ui/icons/Help';
 import NonSupporterIcon from '@material-ui/icons/SentimentVeryDissatisfied';
 import PosterSignIcon from '@material-ui/icons/PictureInPicture';
 
-import NumberStatus from './NumberStatus.js';
-import NumberComment from './NumberComment.js';
+import NumberStatus from './../NumberStatus.js';
+import NumberComment from './../NumberComment.js';
+import NumberViewPresentation from './NumberViewPresentation.js';
+
+import NumberView404 from './NumberView404.js';
 
 
 /**
@@ -31,7 +33,7 @@ class NumberView extends React.Component {
     super(props);
     this.state = {
       redirectHome: false,
-      info: {},
+      info: null,
       statusList: [
         {
           text: 'absent',
@@ -89,8 +91,7 @@ class NumberView extends React.Component {
         },
       ],
     };
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
+    
   }
 
 
@@ -99,10 +100,19 @@ class NumberView extends React.Component {
    */
   componentDidMount() {
 
-    this.setState({ 
-      number: this.props.number,
-      info: this.props.data.prospectInfo
-    });
+    const { number, data } = this.props;
+    console.log('....',  this.props, '  \ ', data);
+
+    if(data) {
+      this.setState({ 
+        number: number,
+        info: data.prospectInfo
+      });
+    }
+
+
+    console.log('....',  this.state);
+
   }
 
 
@@ -110,7 +120,7 @@ class NumberView extends React.Component {
    * Saves info to step as soon as the input changes
    * @param {*} event 
    */
-  handleChange(event) {
+  handleChange = (event) => {
     const { info } = this.state;
     info[event.target.name] = event.target.value;
     this.setState({ info });
@@ -121,7 +131,7 @@ class NumberView extends React.Component {
    * Jumps from one step to another
    * @param {*} stepIndex 
    */
-  jumpToStep(stepIndex) {
+  jumpToStep = (stepIndex) => {
     const { steps } = this.state;
     const step = steps[stepIndex];
     if (!step.active) {
@@ -140,14 +150,16 @@ class NumberView extends React.Component {
   /**
    * Redirects to main view
    */
-  handleSubmit() {
+  handleSubmit = () => {
     this.setState({ redirectHome:true });
   }
 
 
   render() {
 
-    if(this.state.redirectHome) {
+    const { redirectHome, info } = this.state;
+
+    if(redirectHome) {
       return <Redirect to='/' />;
     }
 
@@ -155,26 +167,20 @@ class NumberView extends React.Component {
       <Route>
         <React.Fragment>
           {
-            this.state.steps.map((step, index) => {
-              return (
-                <div
-                  key={step.name}
-                  onClick={ ()=>this.jumpToStep(index) }
-                  className={`stepPanel stepPanel-${index + 1} ${step.active?`active`:``}`}
-                >
-                  { step.render() }
-                </div>
-              )
-            })
+            info 
+            ?
+            <NumberViewPresentation
+              {...this.state}
+              jumpToStep={this.jumpToStep}
+              handleDone={this.handleSubmit}
+            />
+            :
+            <NumberView404
+              {...this.props}
+              {...this.state}
+              handleReturnHome={this.handleSubmit}
+            />
           }
-          
-          <footer className="view--footer">
-            <Button
-              color="danger"
-              className="text-uppercase font-weight-bold"
-              onClick={this.handleSubmit}
-            >Done</Button>
-          </footer>
         </React.Fragment>
       </Route>
     );

@@ -1,7 +1,11 @@
 
 
+/**
+ * Return a random item from @arr as long as this one is different from @val
+ * @param {*} arr 
+ * @param {*} val 
+ */
 export const getRandomItem = (arr, val) => {
-  console.log('---q', val)
   if(!arr) {
     return false;
   }

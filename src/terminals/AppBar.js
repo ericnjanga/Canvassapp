@@ -5,8 +5,6 @@ import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
-import MenuIcon from '@material-ui/icons/Menu';
-import StreetSelector from './StreetSelector.js';
 
 import { appInfo } from './../settings/settings2.js';
 
@@ -42,30 +40,20 @@ class PrimarySearchAppBar extends React.Component {
   };
 
   render() {
-    const { classes, streetsList, activeStreet } = this.props;
+    const { classes, icon, centerContent, streetsList, activeStreet } = this.props;
 
     return (
       <div className={classes.root}>
         <AppBar position="fixed">
           <Toolbar>
             <IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer">
-              <MenuIcon
-                onClick={this.props.toggleDrawer}
-              />
+              { icon }
             </IconButton>
-            <Typography className={classes.title} variant="title" color="inherit" noWrap>
-              { appInfo.name }
-            </Typography>
+            {/* <Typography className={classes.title} variant="title" color="inherit" noWrap>
+              { 'appInfo.name' }
+            </Typography> */}
             <div className={classes.dropdown}>
-              {
-                activeStreet &&
-                <StreetSelector
-                  
-                  list={streetsList}
-                  defaultStreet={activeStreet.id}
-                  handleChange={this.props.handleStreetChange}
-                />
-              }
+              { centerContent }
             </div>
             <div className={classes.grow} />
           </Toolbar>

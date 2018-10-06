@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router, Switch } from "react-router-dom";
 
 import { ThemeContext } from './settings/init.js';
 import { streetsList, numberLists } from './settings/setting1.js';
 import { colorCodesList } from './settings/settings2.js';
 
-import AppBar from './terminals/AppBar.js';
 import AppDrawer from './terminals/AppDrawer.js';
 
 import AppLandingRoute from './terminals/routes/AppLandingRoute.js';
@@ -59,6 +58,7 @@ class App extends Component {
     this.setState({ activeNumbersList, numberLists, activeStreet });
   }
 
+
   /**
    * Each time a street is changed (from the dropdown): 
    * - Update the "active numbers list" with the new list of numbers
@@ -77,26 +77,16 @@ class App extends Component {
 
   
   /**
-   * Change the color of squ
+   * Change theme's color code
+   * - Generate a new random color each time called (different from the last one)
    */
   generareNewColorCode() {
-    // theme.colorCode
-    const { theme } = this.state;
-
-    // Render a different color of button each time
-    // let btnColor = localStorage.getItem(`${appInfo.id}-grid-btn-color`);
-    theme.colorCode = getRandomItem(colorCodesList, theme.colorCode);
-    this.setState({ theme })
-    console.log('colorCode=', theme.colorCode);
-
-
     
+    const { theme } = this.state;
+    theme.colorCode = getRandomItem(colorCodesList, theme.colorCode);
+    this.setState({ theme });
+
   }
-
-  
-
-
-
 
   
   /**
@@ -128,12 +118,6 @@ class App extends Component {
       <ThemeContext.Provider value={this.state.theme}>
         <Router>
           <div className="App">
-            <AppBar
-              streetsList={streetsList}
-              activeStreet={this.state.activeStreet}
-              toggleDrawer={this.toggleDrawer}
-              handleStreetChange={this.handleStreetChange}
-            />
 
             <AppDrawer
               {...this.state.drawer}
@@ -142,14 +126,18 @@ class App extends Component {
               dataList={this.state.activeNumbersList}
             />
 
-            <AppLandingRoute
-              data={this.state.activeNumbersList}
-            />
+            {/* <Switch> */}
+              <AppLandingRoute
+                {...this.state}
+                toggleDrawer={this.toggleDrawer}
+                handleStreetChange={this.handleStreetChange}
+              />
 
-            <NumberRoute
-              data={this.state.activeNumbersList}
-              handleDataChange={this.handleDataChange}
-            />
+              <NumberRoute
+                {...this.state}
+                handleDataChange={this.handleDataChange}
+              />
+            {/* </Switch> */}
           </div>
         </Router>
       </ThemeContext.Provider>

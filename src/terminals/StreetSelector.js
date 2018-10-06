@@ -5,6 +5,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
+import { streetsList } from './../settings/setting1.js';
+
 
 /**
  * Street Selector:
@@ -32,23 +34,26 @@ const styles = theme => ({
   },
 });
 
+
 class DropdownSelect extends React.Component {
   state = {
   };
 
+  static displayName = 'StreetSelector';
+  static defaultProps = {
+    optionList: streetsList,
+  };
+
   componentDidMount() {
     const { list } = this.props;
-    this.setState({ list }); //, activeOption:list[0].id 
+    this.setState({ list });
   }
 
-  // handleChange = event => {
-  //   this.setState({ activeOption: event.target.value });
-  // };
 
   render() {
-    const { classes } = this.props;
+    const { classes, optionList, handleChange } = this.props;
 
-    if(!this.state.list) {
+    if(!optionList) {
       return false;
     }
 
@@ -58,14 +63,14 @@ class DropdownSelect extends React.Component {
           <Select
             className={classes.select}
             value={this.props.defaultStreet}
-            onChange={this.props.handleChange}
+            onChange={handleChange}
             inputProps={{
               name: 'street',
               id: 'street-simple',
             }}
           >
             {
-              this.state.list.map(item => {
+              optionList.map(item => {
                 return(
                   <MenuItem
                     key={item.id}
@@ -86,5 +91,8 @@ class DropdownSelect extends React.Component {
 DropdownSelect.propTypes = {
   classes: PropTypes.object.isRequired,
 };
+
+
+
 
 export default withStyles(styles)(DropdownSelect);
