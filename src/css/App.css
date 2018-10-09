@@ -15,66 +15,13 @@
   margin-top: 0;
 }
 
-
-.stepPanel {
-  position: relative; 
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 20px;
-  transition: flex 0.5s ease; 
-}
-.stepPanel--content {
-  opacity: 0.3;
-}
-.stepPanel--info {
-  position: absolute;
-  z-index: 11;
-  color: #fff;
-  text-align: center;
-  width: 100%;
-  left: 0;
-  font-size: 1.3rem;
-}
-.stepPanel--info small {
-  display: block;
-  margin-bottom: 5px;
-}
-.stepPanel:after {
-  position: absolute;
-  content: '';
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(100, 100, 100 ,0.7);
-  z-index: 10;
-  border-top: 1px solid #aaa;
+.stepPanel--content .list-inline-item {
+  margin-bottom: .5rem;
 }
 
-
-.stepPanel__option small {
-  display: block;
+.collapseGroup .collapseGroup-btn {
+  font-size: 20px;
 }
-
-.stepPanel--decorator {
-  filter: blur(3px);
-}
-
-.stepPanel.active {
-  flex: 1;
-}
-.stepPanel.active .stepPanel--content {
-  opacity: 1;
-}
-.stepPanel.active:after,
-.stepPanel.active .stepPanel--info {
-  display: none;
-}
-.stepPanel.active .stepPanel--decorator {
-  filter: none;
-}
-
 
 
 
@@ -85,7 +32,7 @@
   display: flex;
   flex-wrap: wrap;
   /* background: #333; */
-  border: 10px solid transparent;
+  /* border: 10px solid transparent; */
 }
  
 
@@ -98,3 +45,4 @@
 @import './component/appBar.css';
 @import './component/view.css';
 @import './component/square.css';
+@import './component/collapseGroup.css';

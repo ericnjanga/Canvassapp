@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Badge } from 'reactstrap';
+import { Button } from 'reactstrap';
 
 
 /**
@@ -30,7 +30,7 @@ const NumberStatus = ({ title, statusValue, signValue, optionList, signList, han
                     onClick={handleDataChange}
                     name="status"
                     value={option.text}
-                    color={(statusValue===option.text?`primary`:``)}
+                    color={(statusValue===option.text?`primary`:`default`)}
                   >
                     <small className="avoid-clicks">{ option.icon() }</small>
                     <small className="avoid-clicks">{ option.text }</small>
@@ -68,25 +68,6 @@ const NumberStatus = ({ title, statusValue, signValue, optionList, signList, han
           }
         </div>
       }
-
-      <h3 className="stepPanel--info">
-        {
-          !statusValue && 'No status yet'
-        }
-
-        {
-          statusValue && 
-          <React.Fragment>
-            <small>{ 'How this person feels about the candidate?' }</small>
-            <Badge color="primary">
-              { statusValue==='absent' && 'Person was absent' }
-              { statusValue==='yes' && 'Is a supporter' }
-              { statusValue==='no' && 'Not a supporter' }
-              { statusValue==='undecided' && 'Still undecided' }
-            </Badge>
-          </React.Fragment>
-        }
-      </h3>
 
     </React.Fragment>
   );

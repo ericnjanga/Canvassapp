@@ -13,6 +13,7 @@ import NumberComment from './../NumberComment.js';
 import NumberViewPresentation from './NumberViewPresentation.js';
 
 import NumberView404 from './NumberView404.js';
+import { Button } from '@material-ui/core';
 
 
 /**
@@ -101,7 +102,6 @@ class NumberView extends React.Component {
   componentDidMount() {
 
     const { number, data } = this.props;
-    console.log('....',  this.props, '  \ ', data);
 
     if(data) {
       this.setState({ 
@@ -109,9 +109,6 @@ class NumberView extends React.Component {
         info: data.prospectInfo
       });
     }
-
-
-    console.log('....',  this.state);
 
   }
 
@@ -124,26 +121,6 @@ class NumberView extends React.Component {
     const { info } = this.state;
     info[event.target.name] = event.target.value;
     this.setState({ info });
-  }
-
-
-  /**
-   * Jumps from one step to another
-   * @param {*} stepIndex 
-   */
-  jumpToStep = (stepIndex) => {
-    const { steps } = this.state;
-    const step = steps[stepIndex];
-    if (!step.active) {
-      steps.forEach((item, index) => {
-        if(index!==stepIndex) {
-          item.active = false;
-        } else {
-          item.active = true;
-        }
-      });
-    }
-    this.setState({ steps })
   }
 
 
@@ -171,8 +148,6 @@ class NumberView extends React.Component {
             ?
             <NumberViewPresentation
               {...this.state}
-              jumpToStep={this.jumpToStep}
-              handleDone={this.handleSubmit}
             />
             :
             <NumberView404
@@ -181,6 +156,18 @@ class NumberView extends React.Component {
               handleReturnHome={this.handleSubmit}
             />
           }
+
+          <div style={{ marginTop:'30px'}}>
+            <Button
+              style={{ width: '100%'}}
+              variant="contained"
+              color="secondary"
+              className="text-uppercase font-weight-bold"
+              onClick={this.handleSubmit}
+            >
+              Return home
+            </Button>
+          </div>
         </React.Fragment>
       </Route>
     );
@@ -189,3 +176,4 @@ class NumberView extends React.Component {
 }
 
 export default NumberView;
+

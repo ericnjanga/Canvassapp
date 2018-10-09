@@ -44,15 +44,12 @@ class NumberRoute extends React.Component {
     const { activeStreet, handleDataChange, activeNumbersList } = this.props;
     const { redirectHome } = this.state;
 
-    console.log('...activeNumbersList=', activeNumbersList)
-
     if(!activeNumbersList) {
       return false;
     }
     
     return (
       <Route
-        // exact
         path={`/:id`} 
         render={ 
           (props)=>{
@@ -77,15 +74,8 @@ class NumberRoute extends React.Component {
                       { activeStreet.name } / <b>{ residenceNumber }</b>
                     </div>
                   }
-                  // streetsList={streetsList}
-                  // activeStreet={this.state.activeStreet}
-                  // toggleDrawer={this.toggleDrawer}
-                  // handleStreetChange={this.handleStreetChange}
                 />
-
-                {
-                  console.log('-----activeNumbersList=', activeNumbersList)
-                }
+                
                 <NumberView
                   number={residenceNumber}
                   data={ activeNumbersList.get(residenceNumber) } 

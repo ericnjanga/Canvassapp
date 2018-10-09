@@ -1,5 +1,4 @@
 import React from 'react';
-import { Badge } from 'reactstrap';
 
 
 /**
@@ -25,21 +24,7 @@ const NumberComment = ({ title, value, handleChange }) => {
             onChange={handleChange}
           />
         </div>
-      </div>
-
-      <h3 className="stepPanel--info">
-        {
-          value ?
-          <React.Fragment>
-            <small>{ 'Any comment left?' }</small>
-            <Badge color="primary">
-              { value }
-            </Badge>
-          </React.Fragment>
-          :
-          'No comments yet'
-        }
-      </h3>      
+      </div>     
     </React.Fragment>
   );
 };

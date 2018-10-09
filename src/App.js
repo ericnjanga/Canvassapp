@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Switch } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 
 import { ThemeContext } from './settings/init.js';
 import { streetsList, numberLists } from './settings/setting1.js';
@@ -53,7 +53,7 @@ class App extends Component {
     // Generate a new color code to be used in the "numbers grid"
     this.generareNewColorCode();
 
-    const activeStreet = streetsList[1]; //active street (by default)
+    const activeStreet = streetsList[0]; //active street (by default)
     let activeNumbersList = numberLists.get(activeStreet.id).list;
     this.setState({ activeNumbersList, numberLists, activeStreet });
   }
@@ -118,7 +118,7 @@ class App extends Component {
       <ThemeContext.Provider value={this.state.theme}>
         <Router>
           <div className="App">
-
+            
             <AppDrawer
               {...this.state.drawer}
               activeStreet={this.state.activeStreet}

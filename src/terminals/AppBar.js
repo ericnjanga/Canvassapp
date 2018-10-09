@@ -3,10 +3,7 @@ import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
-
-import { appInfo } from './../settings/settings2.js';
 
 
 /**
@@ -40,7 +37,7 @@ class PrimarySearchAppBar extends React.Component {
   };
 
   render() {
-    const { classes, icon, centerContent, streetsList, activeStreet } = this.props;
+    const { classes, icon, centerContent } = this.props;
 
     return (
       <div className={classes.root}>
@@ -49,9 +46,6 @@ class PrimarySearchAppBar extends React.Component {
             <IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer">
               { icon }
             </IconButton>
-            {/* <Typography className={classes.title} variant="title" color="inherit" noWrap>
-              { 'appInfo.name' }
-            </Typography> */}
             <div className={classes.dropdown}>
               { centerContent }
             </div>

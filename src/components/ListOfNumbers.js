@@ -3,7 +3,7 @@ import { ThemeContext } from './../settings/init.js';
 // Note: removing "Router" creates serious rendering issues
 import { BrowserRouter as Router, Link } from "react-router-dom";
 
-import StatusIcon from './StatusIcon.js';
+import NumberPreview from './NumberPreview.js';
 
 
 /**
@@ -37,7 +37,7 @@ const ListOfNumbers = ({ list, className }) => {
                     to={`/${item.id}`}
                   >
                     { item.id }
-                    <StatusIcon
+                    <NumberPreview
                       className="square--info"
                       {...item.prospectInfo}
                     />
